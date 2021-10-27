@@ -13,7 +13,6 @@ public:
 
 	PlayerCharacter(std::string, float, float); //constructor: set texture, and x, y
 	bool setUpSprite(std::string);	//set texture to sprite
-
 	void Move(std::string); //check if key pressed, get key pressed, set possition
 };
 

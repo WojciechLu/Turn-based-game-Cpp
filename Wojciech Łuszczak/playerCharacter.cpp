@@ -14,7 +14,7 @@ bool PlayerCharacter::setUpSprite(std::string textureName) {
         return false;
     }
 
-    texture.setSmooth(true);
+    texture.setSmooth(true); // tu nie wiem co jest
     sprite.setTexture(texture);
     sprite.setTextureRect(sf::IntRect(0, 0, 64, 64)); //setting the texture size of 64x64
     return true;
@@ -23,17 +23,17 @@ bool PlayerCharacter::setUpSprite(std::string textureName) {
 void PlayerCharacter::Move(std::string pressedKey) {
     if (pressedKey == "D")
     {
-        pos = sf::Vector2f(pos.x + 32, pos.y); //moving player to right
+        pos = sf::Vector2f(pos.x + 64, pos.y); //moving player to right
         sprite.setPosition(pos);
     }
     else if (pressedKey == "A")
     {
-        pos = sf::Vector2f(pos.x - 16, pos.y); //moving player to left
+        pos = sf::Vector2f(pos.x - 64, pos.y); //moving player to left
         sprite.setPosition(pos);
     }
     else if (pressedKey == "W")
     {
-        pos = sf::Vector2f(pos.x, pos.y - 128); //moving player to up
+        pos = sf::Vector2f(pos.x, pos.y - 64); //moving player to up
         sprite.setPosition(pos);
     }
     else if (pressedKey == "S")

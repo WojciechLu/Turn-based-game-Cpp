@@ -9,25 +9,24 @@
 #include "windowGame.h"
 
 
-windowGame window = windowGame(); //ups, zrobic ponownie window
-//kurwa
-GameWorld gameWorld = GameWorld();
-PlayerCharacter* player = new PlayerCharacter("images/character64.png", 192, 256);
+windowGame* mainWindow = new windowGame(576, 576, "Game");  // created obj mainWindow with consturcor: size 512x512 with title name: Game
+GameWorld gameWorld = GameWorld();                          //world class constructor
+PlayerCharacter* player = new PlayerCharacter("images/character64.png", 192, 256); //player character class constructor on pos(192, 256) with texture character64
 
-void drawWorld() {
+void draw2dWorld() {
     for (int i = 0; i < gameWorld.gridLength; i++) {
         for (int j = 0; j < gameWorld.gridLength; j++) {
-            window.draw(gameWorld.tiles[i][j]->sprite);  //tile[0][0] is top left, tile[0][1] is next to right
+            mainWindow->window.draw(gameWorld.tiles[i][j]->sprite);  //tile[0][0] is top left, tile[0][1] is next to right
         }
     }
-    window.draw(player->sprite);
+    mainWindow->window.draw(player->sprite);
 }
 
 
 void updateInput() {
     sf::Event event;
     
-    while (window.pollEvent(event)) {
+    while (mainWindow->window.pollEvent(event)) {
         //Checking the key and moving the player
         if (event.type == sf::Event::KeyPressed) {
 
@@ -51,23 +50,23 @@ void updateInput() {
             }
         }
         //if Escape do quit game
-        if (event.key.code == sf::Keyboard::Escape || event.type == sf::Event::Closed) window.close();
+        if (event.key.code == sf::Keyboard::Escape || event.type == sf::Event::Closed) mainWindow->window.close();
     }
 }
 
 
 int main()
 {
-    window.setFramerateLimit(30);
-    while (window.isOpen())
+    mainWindow->window.setFramerateLimit(30);
+    while (mainWindow->window.isOpen())
     {
         //update input
         updateInput();
 
         //update the game
-        window.clear();
-        drawWorld(); //draw all sprites on 2d map
-        window.display(); //display all the sprites on the window
+        mainWindow->window.clear();
+        draw2dWorld(); //draw all sprites on 2d map
+        mainWindow->window.display(); //display all the sprites on the window
     }
 
     return 0;
