@@ -9,12 +9,10 @@
 
 class GameWorld {
 	sf::Vector2i exitPos;
-	sf::Vector2i playerPos;
 	std::vector<sf::Vector2i> enemyPositions; //vector of Vector2i with enemies' possition
 	std::vector<sf::Vector2i> coinPossition; //vector of Vector2i with coins' possition
 	void setUpInitialState();
 	void setUpEnemyPositions();
-	void setUpCoinPositions();
 	void setUpTiles();
 
 public:

@@ -7,21 +7,33 @@
 #include "playerCharacter.h"
 #include "StateMachine.h"
 #include "windowGame.h"
+#include "coins.h"
 
 
 windowGame* mainWindow = new windowGame(576, 576, "Game");  // created obj mainWindow with consturcor: size 512x512 with title name: Game
 GameWorld gameWorld = GameWorld();                          //world class constructor
 PlayerCharacter* player = new PlayerCharacter("images/character64.png", 192, 256); //player character class constructor on pos(192, 256) with texture character64
-
+coins coinsInGame;
 void draw2dWorld() {
     for (int i = 0; i < gameWorld.gridLength; i++) {
         for (int j = 0; j < gameWorld.gridLength; j++) {
             mainWindow->window.draw(gameWorld.tiles[i][j]->sprite);  //tile[0][0] is top left, tile[0][1] is next to right
         }
     }
-    mainWindow->window.draw(player->sprite);
+
+    for (int i = 0; i < coinsInGame.numberOfCoinsOnMap; i++) { //draw all coins
+        mainWindow->window.draw(coinsInGame.tiles[i]->sprite);
+    }
+
+    mainWindow->window.draw(player->sprite); //draw player
+    
 }
 
+//void drawCoins() {
+//    for (int i = 0; i < coinsInGame.numberOfCoinsOnMap; i++) {
+//        mainWindow->window.draw(coinsInGame.tiles[i]->sprite);
+//    }
+//}
 
 void updateInput() {
     sf::Event event;

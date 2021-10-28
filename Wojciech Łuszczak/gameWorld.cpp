@@ -7,9 +7,7 @@ GameWorld::GameWorld() {
 
 void GameWorld::setUpInitialState() {
 	//exitPos = sf::Vector2i(2, 0);
-	playerPos = sf::Vector2i(gridLength-1, gridLength-1);
 	setUpEnemyPositions();
-	setUpCoinPositions();
 	setUpTiles();
 
 }
@@ -19,13 +17,6 @@ void GameWorld::setUpEnemyPositions() {
 	//enemyPositions.push_back(sf::Vector2i(6, 0)); set in this way positions' of enemies
 }
 
-void GameWorld::setUpCoinPositions() {
-	coinPossition.clear();
-	coinPossition.push_back(sf::Vector2i(5, 2));// set in this way positions' of coins
-
-	std::vector<GameTile*> coinsOnMap;
-	 coinsOnMap.push_back(new GameTile("images/map/coin.png", 5 * 64, 2 * 64, true, false));
-}
 //0, 64, 128, 192, 256, 320, 384
 void GameWorld::setUpTiles() {
 	tiles.clear();

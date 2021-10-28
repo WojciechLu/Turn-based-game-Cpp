@@ -42,3 +42,13 @@ void PlayerCharacter::Move(std::string pressedKey) {
         sprite.setPosition(pos);
     }
 }
+/*
+void PlayerCharacter::AddCoins(int coins) {     //function to add coins to inventory
+    this->coinsAmount += coins;
+}
+
+void PlayerCharacter::SpendCoins(int price) {   //function to lose coins by buying
+    this->coinsAmount -= price;
+
+}
+*/
