@@ -14,7 +14,7 @@ bool PlayerCharacter::setUpSprite(std::string textureName) {
         return false;
     }
 
-    texture.setSmooth(true); // tu nie wiem co jest
+    texture.setSmooth(true); // antialysing
     sprite.setTexture(texture);
     sprite.setTextureRect(sf::IntRect(0, 0, 64, 64)); //setting the texture size of 64x64
     return true;
@@ -42,11 +42,11 @@ void PlayerCharacter::Move(std::string pressedKey) {
         sprite.setPosition(pos);
     }
 }
-/*
+
 void PlayerCharacter::AddCoins(int coins) {     //function to add coins to inventory
     this->coinsAmount += coins;
 }
-
+/*
 void PlayerCharacter::SpendCoins(int price) {   //function to lose coins by buying
     this->coinsAmount -= price;
 
