@@ -24,13 +24,17 @@ void draw2dWorld() {
         }
     }
 
-    for (int i = 0; i < coinsInGame.numberOfCoinsOnMap; i++) { //draw all coins
+    for (int i = 0; i < coinsInGame.getNumberOfCoins(); i++) { //draw all coins
         mainWindow->window.draw(coinsInGame.tiles[i]->sprite);
     }
 
     mainWindow->window.draw(player->sprite); //draw player
 
     mainWindow->window.display(); //display all the sprites on the window
+}
+
+void drawBattle() {
+    //do something
 }
 
 void updateInput() {
@@ -41,7 +45,7 @@ void updateInput() {
         if (event.type == sf::Event::KeyPressed) {
 
             
-            float playerX = player->pos.x / 64, playerY = player->pos.y / 64; //get player pos as value from 0-8
+            float playerX = player->getPosX() / 64, playerY = player->getPosY() / 64; //get player pos as value from 0-8
 
             if (event.key.code == sf::Keyboard::D) {
                 if (gameWorld.tiles[playerY][playerX + 1]->isPassable) player->Move("D"); //checking if next tile is passable
@@ -59,12 +63,9 @@ void updateInput() {
                 if (gameWorld.tiles[playerY + 1][playerX]->isPassable) player->Move("S");//checking if next tile is passable
 
             }
-            int posCoin = coinsInGame.isPlayerOn(player->pos.x, player->pos.y, player);
-            if (posCoin != -1) {
-                mainWindow->window.clear();
-                draw2dWorld();
-            }
+            
         }
+        coinsInGame.isPlayerOn(player);
         //if Escape do quit game
         if (event.key.code == sf::Keyboard::Escape || event.type == sf::Event::Closed) mainWindow->window.close();
         

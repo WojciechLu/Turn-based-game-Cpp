@@ -20,15 +20,28 @@ bool PlayerCharacter::setUpSprite(std::string textureName) {
     return true;
 }
 
+float PlayerCharacter::getPosX() {
+    return this->pos.x;
+}
+float PlayerCharacter::getPosY() {
+    return this->pos.y;
+}
+
+int PlayerCharacter::getCoins() {
+    return this->coinsAmount;
+}
+
 void PlayerCharacter::Move(std::string pressedKey) {
     if (pressedKey == "D")
     {
         pos = sf::Vector2f(pos.x + 64, pos.y); //moving player to right
+        this->setUpSprite("images/character64.png");
         sprite.setPosition(pos);
     }
     else if (pressedKey == "A")
     {
         pos = sf::Vector2f(pos.x - 64, pos.y); //moving player to left
+        this->setUpSprite("images/character64left.png");
         sprite.setPosition(pos);
     }
     else if (pressedKey == "W")

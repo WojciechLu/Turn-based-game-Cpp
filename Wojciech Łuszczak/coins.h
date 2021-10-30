@@ -10,14 +10,16 @@ class coins
 {
 	sf::Vector2f pos;
 	sf::Texture texture; //texture of coins
+	int numberOfCoinsOnMap; //how many coins are on the map
 	void setUpTiles();
 public:
 	std::vector<GameTile*> tiles;
 	sf::Sprite sprite;	//sprite of coins
-	int numberOfCoinsOnMap; //how many coins are on the map
 	
 	coins();
-	int isPlayerOn(int, int, PlayerCharacter *player);
+	int getNumberOfCoins(); //return the number of coins on the map
+	void setNumberOfCoins(int); //set the number of coins on the map
+	void isPlayerOn(PlayerCharacter *player); //if player is on coin, then remove coin from vector using erase
 };
 
 #endif

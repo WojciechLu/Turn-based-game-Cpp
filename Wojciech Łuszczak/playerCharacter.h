@@ -7,12 +7,16 @@
 class PlayerCharacter {
 	sf::Texture texture; //texture of the player
 	int coinsAmount{}; //setting the coinAmount value to 0
+	sf::Vector2f pos; //possition of the player
 
 public:
-	sf::Vector2f pos; //possition of the player
 	sf::Sprite sprite;	//sprite of the player
 	PlayerCharacter(std::string, float, float); //constructor: set texture, and x, y
 	bool setUpSprite(std::string);	//set texture to sprite
+	float getPosX();
+	float getPosY();
+	int getCoins();
+	
 	void Move(std::string); //check if key pressed, get key pressed, set possition
 	void AddCoins(int coins);
 	/*

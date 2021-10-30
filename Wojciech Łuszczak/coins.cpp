@@ -29,20 +29,27 @@ coins::coins() {
 
 void coins::setUpTiles() {
     tiles.clear();
-    tiles.push_back(new GameTile("images/map/coin.png", 3 * 64, 3 * 64, true, false));
+    tiles.push_back(new GameTile("images/map/coin.png", 3 * 64, 3 * 64, true, false)); //set texture of coin, set position, passable and not exit
     tiles.push_back(new GameTile("images/map/coin.png", 4 * 64, 5 * 64, true, false));
     tiles.push_back(new GameTile("images/map/coin.png", 6 * 64, 7 * 64, true, false));
-    numberOfCoinsOnMap = 3;
+    numberOfCoinsOnMap = tiles.size(); //set the number of 
 }
 
-int coins::isPlayerOn(int x, int y, PlayerCharacter *player) { //to improve
-    int removeInt = -1;
+int coins::getNumberOfCoins() {
+    return this->numberOfCoinsOnMap;
+}
+
+void coins::setNumberOfCoins(int a) {
+    this->numberOfCoinsOnMap = a;
+}
+
+void coins::isPlayerOn(PlayerCharacter *player) { // get pos x, y, get pointer to obj of class player to give coins to inventory
     for (int i = 0; i < numberOfCoinsOnMap; i++){
-        if (tiles[i]->pos.x == x && tiles[i]->pos.y == y) { 
-            tiles.erase(tiles.begin() + i);
-            numberOfCoinsOnMap--;
-            player->AddCoins(50);
+        if (tiles[i]->pos.x == player->getPosX() && tiles[i]->pos.y == player->getPosY()) { //for each coin in vector tiles, checking if player is on this coin
+            tiles.erase(tiles.begin() + i); //deleting the coin from vector
+            this->setNumberOfCoins(this->tiles.size()); //set the number of coins
+            player->AddCoins(50); //adding the number of coins to player
+            break; //if player was on the coin, then break loop
         }
     }
-    return -1;
 }
