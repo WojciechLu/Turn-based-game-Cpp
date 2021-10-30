@@ -8,12 +8,15 @@
 #include "StateMachine.h"
 #include "windowGame.h"
 #include "coins.h"
+#include "Battle.h"
 
 
 windowGame* mainWindow = new windowGame(576, 576, "Game");  // created obj mainWindow with consturcor: size 512x512 with title name: Game
 GameWorld gameWorld = GameWorld();                          //world class constructor
 PlayerCharacter* player = new PlayerCharacter("images/character64.png", 192, 256); //player character class constructor on pos(192, 256) with texture character64
 coins coinsInGame;
+
+Battle battle = Battle();
 
 void draw2dWorld() {
     mainWindow->window.clear();
@@ -34,9 +37,12 @@ void draw2dWorld() {
 }
 
 void drawBattle() {
-    //do something
+    mainWindow->window.clear();
+    mainWindow->window.draw(battle.spriteActionsPlayer);
+    mainWindow->window.display();
 }
 
+//update input 2d map
 void updateInput() {
     sf::Event event;
     
@@ -72,6 +78,22 @@ void updateInput() {
     }
 }
 
+//update input battle
+void updateInputBattle() {
+    sf::Event event;
+
+    while (mainWindow->window.pollEvent(event)) {
+        if (event.type == sf::Event::KeyPressed) {
+            if (event.key.code == sf::Keyboard::A) {
+                battle.chooseAction('A');
+            }
+            if (event.key.code == sf::Keyboard::D) {
+                battle.chooseAction('D');
+            }
+        }
+        if (event.key.code == sf::Keyboard::Escape || event.type == sf::Event::Closed) mainWindow->window.close();
+    }
+}
 
 int main()
 {
@@ -79,11 +101,12 @@ int main()
     while (mainWindow->window.isOpen())
     {
         //update input
-        updateInput();
-
+        //updateInput();
+        updateInputBattle();
         //update the game
         
-        draw2dWorld(); //draw all sprites on 2d map
+        //draw2dWorld(); //draw all sprites on 2d map
+        drawBattle();
     }
 
     return 0;

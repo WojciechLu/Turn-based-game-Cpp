@@ -146,6 +146,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Battle.cpp" />
     <ClCompile Include="coins.cpp" />
     <ClCompile Include="gameTile.cpp" />
     <ClCompile Include="gameWorld.cpp" />
@@ -155,6 +156,7 @@
     <ClCompile Include="windowGame.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Battle.h" />
     <ClInclude Include="coins.h" />
     <ClInclude Include="gameTile.h" />
     <ClInclude Include="gameWorld.h" />
