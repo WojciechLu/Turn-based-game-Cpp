@@ -9,14 +9,19 @@
 #include "windowGame.h"
 #include "coins.h"
 #include "Battle.h"
+#include "Character.h"
+#include "Attack.h"
 
 
 windowGame* mainWindow = new windowGame(576, 576, "Game");  // created obj mainWindow with consturcor: size 512x512 with title name: Game
 GameWorld gameWorld = GameWorld();                          //world class constructor
 PlayerCharacter* player = new PlayerCharacter("images/character64.png", 192, 256); //player character class constructor on pos(192, 256) with texture character64
+EnemyCharacter* enemy1 = new EnemyCharacter("images/enemyWarrior64.png", 256, 192);
 coins coinsInGame;
+Attack* attack = new Attack();
 
-Battle battle = Battle();
+Battle* battle = new Battle(*player, *enemy1);
+//Battle* battle = new Battle();
 
 void draw2dWorld() {
     mainWindow->window.clear();
@@ -31,14 +36,16 @@ void draw2dWorld() {
         mainWindow->window.draw(coinsInGame.tiles[i]->sprite);
     }
 
-    mainWindow->window.draw(player->sprite); //draw player
+    mainWindow->window.draw(player->getSprite()); //draw player
 
     mainWindow->window.display(); //display all the sprites on the window
 }
 
 void drawBattle() {
     mainWindow->window.clear();
-    mainWindow->window.draw(battle.spriteActionsPlayer);
+    mainWindow->window.draw(battle->getSpriteMenu()); //drawing sprite of actions to choose
+    mainWindow->window.draw(battle->getSpritePlayer());   //drawing player on the screen
+    mainWindow->window.draw(battle->getSpriteEnemy());    //drawing enemy on the screen
     mainWindow->window.display();
 }
 
@@ -85,10 +92,13 @@ void updateInputBattle() {
     while (mainWindow->window.pollEvent(event)) {
         if (event.type == sf::Event::KeyPressed) {
             if (event.key.code == sf::Keyboard::A) {
-                battle.chooseAction('A');
+                battle->chooseAction('A', *player, attack, mainWindow);
             }
             if (event.key.code == sf::Keyboard::D) {
-                battle.chooseAction('D');
+                battle->chooseAction('D', *player, attack, mainWindow);
+            }
+            if (event.key.code == sf::Keyboard::E) {
+                battle->chooseAction('E', *player, attack, mainWindow);
             }
         }
         if (event.key.code == sf::Keyboard::Escape || event.type == sf::Event::Closed) mainWindow->window.close();
@@ -97,15 +107,16 @@ void updateInputBattle() {
 
 int main()
 {
-    mainWindow->window.setFramerateLimit(30);
+    mainWindow->window.setFramerateLimit(20);
     while (mainWindow->window.isOpen())
     {
-        //update input
-        //updateInput();
-        updateInputBattle();
+        //update input         //draw all sprites on 2d map
         //update the game
-        
-        //draw2dWorld(); //draw all sprites on 2d map
+        //updateInput();
+        //draw2dWorld(); 
+
+
+        updateInputBattle();
         drawBattle();
     }
 

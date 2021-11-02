@@ -48,7 +48,7 @@ void coins::isPlayerOn(PlayerCharacter *player) { // get pos x, y, get pointer t
         if (tiles[i]->pos.x == player->getPosX() && tiles[i]->pos.y == player->getPosY()) { //for each coin in vector tiles, checking if player is on this coin
             tiles.erase(tiles.begin() + i); //deleting the coin from vector
             this->setNumberOfCoins(this->tiles.size()); //set the number of coins
-            player->AddCoins(50); //adding the number of coins to player
+            player->setCoins(50); //adding the number of coins to player
             break; //if player was on the coin, then break loop
         }
     }
