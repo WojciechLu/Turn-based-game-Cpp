@@ -1,7 +1,7 @@
 #include "windowGame.h"
 #include <SFML/Graphics.hpp>
 
-windowGame::windowGame(int height, int width, std::string name) {
+WindowGame::WindowGame(int height, int width, std::string name) {
 	this->vm.height = height;
 	this->vm.width = width;
 	

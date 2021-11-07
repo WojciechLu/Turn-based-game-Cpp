@@ -13,11 +13,11 @@
 #include "Attack.h"
 
 
-windowGame* mainWindow = new windowGame(576, 576, "Game");  // created obj mainWindow with consturcor: size 512x512 with title name: Game
+WindowGame* mainWindow = new WindowGame(576, 576, "Game");  // created obj mainWindow with consturcor: size 512x512 with title name: Game
 GameWorld gameWorld = GameWorld();                          //world class constructor
 PlayerCharacter* player = new PlayerCharacter("images/character64.png", 192, 256); //player character class constructor on pos(192, 256) with texture character64
 EnemyCharacter* enemy1 = new EnemyCharacter("images/enemyWarrior64.png", 256, 192);
-coins coinsInGame;
+Coins coinsInGame;
 Attack* attack = new Attack();
 
 Battle* battle = new Battle(*player, *enemy1);
@@ -42,7 +42,7 @@ void draw2dWorld() {
 }
 
 void drawBattle() {
-    mainWindow->window.clear();
+    mainWindow->window.clear(sf::Color::White);
     mainWindow->window.draw(battle->getSpriteMenu()); //drawing sprite of actions to choose
     mainWindow->window.draw(battle->getSpritePlayer());   //drawing player on the screen
     mainWindow->window.draw(battle->getSpriteEnemy());    //drawing enemy on the screen
@@ -92,16 +92,16 @@ void updateInputBattle() {
     while (mainWindow->window.pollEvent(event)) {
         if (event.type == sf::Event::KeyPressed) {
             if (event.key.code == sf::Keyboard::A) {
-                battle->chooseAction('A', *player, attack, mainWindow);
+                battle->chooseAction('A', *player, attack, mainWindow); //if A, change chosen action to the left
             }
             if (event.key.code == sf::Keyboard::D) {
-                battle->chooseAction('D', *player, attack, mainWindow);
+                battle->chooseAction('D', *player, attack, mainWindow); //if D, change chosen action to the right
             }
             if (event.key.code == sf::Keyboard::E) {
-                battle->chooseAction('E', *player, attack, mainWindow);
+                battle->chooseAction('E', *player, attack, mainWindow); //if E, do action
             }
         }
-        if (event.key.code == sf::Keyboard::Escape || event.type == sf::Event::Closed) mainWindow->window.close();
+        if (event.key.code == sf::Keyboard::Escape || event.type == sf::Event::Closed) mainWindow->window.close(); //if escape, exit game
     }
 }
 

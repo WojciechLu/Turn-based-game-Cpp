@@ -35,7 +35,7 @@ class Battle
 	void setPlayer(PlayerCharacter);
 	void setEnemy(EnemyCharacter);
 
-
+	//ideas to add
 	//void setPlayerTurn(); //setting `true` or `false` to playerTurn
 	//void setPlayerHP(PlayerCharacter* player);	//setting playerHP to current
 	//void setEnemyHP(EnemyCharacter* enemy);
@@ -43,17 +43,20 @@ class Battle
 	//void setEnemySprite(EnemyCharacter* enemy);
 
 	void actionsMenu(std::string, float, float);
-	bool setUpSpriteActionsMenu(std::string);
-	void setUpAttackChoice();
-	void updateSpriteAttackChoice();
+	bool setUpSpriteActionsMenu(std::string); //setting texture and then using setUpSprite to set sprite
+	
+	//unused and undeclared								  
+	//void setUpAttackChoice();
+	//void updateSpriteAttackChoice();
 
 public:
 
 	
 
 	//void chooseAction(char, Attack); //changing spell choice by 'A' or 'D' key
-	void chooseAction(char, PlayerCharacter, Attack*, windowGame*);
-	Battle(PlayerCharacter, EnemyCharacter); //constructor
+	void chooseAction(char, PlayerCharacter, Attack*, WindowGame*); //changing texture sprite to next or previous attack, used in StartGame
+	Battle(PlayerCharacter, EnemyCharacter); //constructor, get player and enemy informations and setting to battle class
+
 	sf::Sprite getSpriteMenu();
 	sf::Sprite getSpritePlayer();
 	sf::Sprite getSpriteEnemy();

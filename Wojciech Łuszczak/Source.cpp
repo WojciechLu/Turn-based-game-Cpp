@@ -18,7 +18,7 @@
 //        sprite.setTextureRect(rectSourceSprite);
 //        clock.restart();
 //    }
-//    m_window->clear();
+//    m_window->clear(sf::Color::White);
 //    m_window->draw(sprite);
 //    m_window->display();
 //    }

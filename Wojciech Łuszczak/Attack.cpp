@@ -12,7 +12,7 @@ sf::Texture Attack::getTexture() {
 	return this->textureAttack;
 }
 
-void Attack::doAttack(int a, sf::Vector2f pos){
+void Attack::doAttack(int a, sf::Vector2f pos){ //in the future switch(a) to set adequate texture path, set postion where should be displeyed
 	setUpInitial("images/attackAnimation/swordAttack.png", pos.x, pos.y);
 }
 
@@ -36,7 +36,9 @@ bool Attack::setUpSprite(std::string textureName){
 	return true;
 }
 
-void Attack::animation(windowGame* m_window) {
+//				TO DO!!!
+//				  !!!!
+void Attack::animation(WindowGame* m_window) { //repair in the future 
 	sf::Clock clock;
 	sf::IntRect rectSourceSprite(0, 0, 64, 64);
 	sf::Sprite sprite(textureAttack, rectSourceSprite);

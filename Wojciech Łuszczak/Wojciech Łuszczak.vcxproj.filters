@@ -18,22 +18,22 @@
     <ClCompile Include="StartGame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="gameTile.cpp">
+    <ClCompile Include="GameTile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="gameWorld.cpp">
+    <ClCompile Include="GameWorld.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="StateMachine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="playerCharacter.cpp">
+    <ClCompile Include="PlayerCharacter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="windowGame.cpp">
+    <ClCompile Include="WindowGame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="coins.cpp">
+    <ClCompile Include="Coins.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Battle.cpp">
@@ -68,7 +68,7 @@
     <ClInclude Include="windowGame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="coins.h">
+    <ClInclude Include="Coins.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Battle.h">
