@@ -11,12 +11,23 @@ void Battle::setPlayer(PlayerCharacter player) { //setting player data in constr
     spritePlayer = player.getSprite();
     texturePlayer = player.getTexture();
     spritePlayer.setPosition(3 * 64, 3 * 64);
+
+    playerHP = player.getHP();
 }
 
 void Battle::setEnemy(EnemyCharacter enemy) { //setting enemy data in constructor
     spriteEnemy = enemy.getSprite();
     textureEnemy = enemy.getTexture();
     spriteEnemy.setPosition(5 * 64, 3 * 64);
+
+    enemyHP = enemy.getHP();
+}
+void Battle::setPlayerHP(int a) { //setting playerHP to current
+    playerHP = a;
+}
+	
+void Battle::setEnemyHP(int a) {
+    enemyHP = a;
 }
 
 void Battle::actionsMenu(std::string textureName, float x, float y) { //setting texture and then using setUpSprite to set sprite
@@ -58,27 +69,35 @@ void Battle::chooseAction(char key, PlayerCharacter player, Attack *attack, Wind
     if (key == 'A') {
         if (this->attackChoice == 0) {
             this->attackChoice = 3;
-            player.setChoiceSkill(attackChoice); //setting the number 0-4, depends on the chosen action
+            //player.setChoiceSkill(attackChoice); //setting the number 0-4, depends on the chosen action
         }
         else {
             this->attackChoice--;
-            player.setChoiceSkill(attackChoice);
+            //player.setChoiceSkill(attackChoice);
         }
         setUpSpriteActionsMenu("images/actionMenu/attackSwordsman/interface.png"); //update the choice of attack
     }
     else if (key == 'D') {
         if (this->attackChoice == 3) {
             this->attackChoice = 0;
-            player.setChoiceSkill(attackChoice);
+            //player.setChoiceSkill(attackChoice);
         }
         else {
             this->attackChoice++;
-            player.setChoiceSkill(attackChoice);
+            //player.setChoiceSkill(attackChoice);
         }
         setUpSpriteActionsMenu("images/actionMenu/attackSwordsman/interface.png"); //update the choice of attack
     }
     else if (key == 'E') {
-        attack->doAttack(player.skill(attackChoice), this->spriteEnemy.getPosition()); //getting the number of chosen attack and posiotion to (chosen) enemy
+        int damageDealt = attack->doAttack(attackChoice, player.getAttackDamage(), this->spriteEnemy.getPosition()); //giving the number of chosen attack and posiotion to (chosen) enemy then recive damage dealt
         attack->animation(m_window); //making animation based on the above data
+      
+        if (damageDealt > 0) {
+            setEnemyHP(enemyHP - damageDealt);
+            std::cout << "enemy HP: " << enemyHP << std::endl;
+        }
+        else {
+            std::cout << "Missed \n";
+        }
     }
 }

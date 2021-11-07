@@ -1,5 +1,41 @@
 #include "Attack.h"
 #include <iostream>
+#include <cstdlib>
+
+int Attack::SwordAttack(int a) {
+	int missed = rand() % 3;
+	int crit = 1 + rand() % 100;
+	int dmg = -1;
+
+	if (missed == 0) {
+		return -1;
+	}
+	else {
+		if (crit > 90) {
+			dmg = 1.5 * a;
+		}
+		else {
+			dmg = a;
+		}
+	}
+}
+
+int Attack::BashAttack(int a) {
+	int missed = rand() % 3;
+	int crit = 1 + rand() % 100;
+
+	if (missed == 0) {
+		return -1;
+	}
+	else {
+		if (crit > 70) {
+			return 2 * a;
+		}
+		else {
+			return 0.5 * a;
+		}
+	}
+}
 
 Attack::Attack() {
 	setUpInitial("", 0, 0);
@@ -12,8 +48,26 @@ sf::Texture Attack::getTexture() {
 	return this->textureAttack;
 }
 
-void Attack::doAttack(int a, sf::Vector2f pos){ //in the future switch(a) to set adequate texture path, set postion where should be displeyed
+int Attack::doAttack(int a, int ad, sf::Vector2f pos){ //set postion where should be displeyed, get attack damage
+	switch (a) {
+	case 0:
+		std::cout << "You chose sword attack" << std::endl;
+		return SwordAttack(ad);
+		break;
+	case 1:
+		std::cout << "You chose block" << std::endl;
+		break;
+	case 2:
+		std::cout << "You chose aim" << std::endl;
+		break;
+	case 3:
+		std::cout << "You chose bash" << std::endl;
+		return BashAttack(ad);
+		break;
+	// case 4, case 5, ...
+	}
 	setUpInitial("images/attackAnimation/swordAttack.png", pos.x, pos.y);
+	return -1;
 }
 
 void Attack::setUpInitial(std::string textureName, float x, float y) {

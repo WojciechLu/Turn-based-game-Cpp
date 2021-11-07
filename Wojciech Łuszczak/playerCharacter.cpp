@@ -102,19 +102,18 @@ int PlayerCharacter::skill(int a) {
         return -1;
     }
 }
-void PlayerCharacter::swordAttack() {
-    std::cout << "You chose sword attack" << std::endl;
-}
-
-
-void PlayerCharacter::block() {
-    std::cout << "You chose block" << std::endl;
-
-}
-void PlayerCharacter::aim() {
-    std::cout << "You chose aim" << std::endl;
-
-}
-void PlayerCharacter::bash() {
-    std::cout << "You chose bash" << std::endl;
-}
+//void PlayerCharacter::swordAttack() {
+//    std::cout << "You chose sword attack" << std::endl;
+//}
+//
+//void PlayerCharacter::block() {
+//    std::cout << "You chose block" << std::endl;
+//
+//}
+//void PlayerCharacter::aim() {
+//    std::cout << "You chose aim" << std::endl;
+//
+//}
+//void PlayerCharacter::bash() {
+//    std::cout << "You chose bash" << std::endl;
+//}

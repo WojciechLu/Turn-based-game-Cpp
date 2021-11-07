@@ -34,11 +34,12 @@ class Battle
 
 	void setPlayer(PlayerCharacter);
 	void setEnemy(EnemyCharacter);
+	void setPlayerHP(int);	//setting playerHP to current
+	void setEnemyHP(int);
 
 	//ideas to add
 	//void setPlayerTurn(); //setting `true` or `false` to playerTurn
-	//void setPlayerHP(PlayerCharacter* player);	//setting playerHP to current
-	//void setEnemyHP(EnemyCharacter* enemy);
+	//bool whoWon(); //return true if player won, return false if enemy won
 	//void setPlayerSprite(PlayerCharacter* player); //getting player texture and sprite and setting it
 	//void setEnemySprite(EnemyCharacter* enemy);
 
