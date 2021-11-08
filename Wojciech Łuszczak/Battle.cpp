@@ -5,6 +5,7 @@ Battle::Battle(PlayerCharacter player, EnemyCharacter enemy) {  //constructor, g
     actionsMenu("images/actionMenu/attackSwordsman/interface.png", 2.5 * 64, 6 * 64);
     setPlayer(player);
     setEnemy(enemy);
+    initText();
 }
 
 void Battle::setPlayer(PlayerCharacter player) { //setting player data in constructor
@@ -14,7 +15,6 @@ void Battle::setPlayer(PlayerCharacter player) { //setting player data in constr
 
     playerHP = player.getHP();
 }
-
 void Battle::setEnemy(EnemyCharacter enemy) { //setting enemy data in constructor
     spriteEnemy = enemy.getSprite();
     textureEnemy = enemy.getTexture();
@@ -25,7 +25,6 @@ void Battle::setEnemy(EnemyCharacter enemy) { //setting enemy data in constructo
 void Battle::setPlayerHP(int a) { //setting playerHP to current
     playerHP = a;
 }
-	
 void Battle::setEnemyHP(int a) {
     enemyHP = a;
 }
@@ -64,6 +63,15 @@ sf::Sprite Battle::getSpriteEnemy() {
 sf::Sprite Battle::getSpriteAttack() {
     return this->attackSprite;
 }
+sf::Text Battle::getTextEnemyHP() {
+    return this->textEnemyHP;
+}
+sf::Text Battle::getTextPlayerHP() {
+    return this->textPlayerHP;
+}
+int Battle::getBattleResult() {
+    return this->battleResult;
+}
 
 void Battle::chooseAction(char key, PlayerCharacter player, Attack *attack, WindowGame *m_window) { //changing texture sprite to next or previous attack, used in StartGame
     if (key == 'A') {
@@ -90,14 +98,56 @@ void Battle::chooseAction(char key, PlayerCharacter player, Attack *attack, Wind
     }
     else if (key == 'E') {
         int damageDealt = attack->doAttack(attackChoice, player.getAttackDamage(), this->spriteEnemy.getPosition()); //giving the number of chosen attack and posiotion to (chosen) enemy then recive damage dealt
+        playerAttack(damageDealt);
         attack->animation(m_window); //making animation based on the above data
-      
-        if (damageDealt > 0) {
-            setEnemyHP(enemyHP - damageDealt);
-            std::cout << "enemy HP: " << enemyHP << std::endl;
+        checkWin();
+    }
+}
+
+void Battle::checkWin() {
+    if (enemyHP == 0) {
+        this->battleResult = 1;   //player won
+        std::cout << battleResult << std::endl;
+    }
+    else if (playerHP == 0) {
+        this->battleResult = -1;  //enemy won
+        std::cout << battleResult << std::endl;
+    }
+}
+
+void Battle::playerAttack(int a) {
+    if (a > 0) {
+        if (a >= enemyHP) {
+            std::cout << "DMAGE: " << a << std::endl;
+            setEnemyHP(0);
+            std::cout << "HP: " << enemyHP << std::endl;
+
         }
         else {
-            std::cout << "Missed \n";
+            setEnemyHP(enemyHP - a);
+            std::cout << "enemy HP: " << enemyHP << std::endl;
         }
     }
+    else {
+        std::cout << "Missed \n";
+    }
+}
+
+void Battle::initText() {
+    sf::Font font;
+    font.loadFromFile("arial.ttf");
+    textPlayerHP.setFont(font); // font is a sf::Font
+    textEnemyHP.setFont(font);
+    
+    textPlayerHP.setString(std::to_string(playerHP)); // set the string to display
+    textEnemyHP.setString(std::to_string(enemyHP));
+    
+    textPlayerHP.setCharacterSize(24); // set the character size
+    textEnemyHP.setCharacterSize(24);
+    
+    textPlayerHP.setFillColor(sf::Color::Red); // set the color
+    textEnemyHP.setFillColor(sf::Color::Red);
+
+    textPlayerHP.setPosition(3 * 64, 4 * 64);
+    textEnemyHP.setPosition(5 * 64, 4 * 64);
 }

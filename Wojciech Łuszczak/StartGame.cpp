@@ -19,8 +19,9 @@ PlayerCharacter* player = new PlayerCharacter("images/character64.png", 192, 256
 EnemyCharacter* enemy1 = new EnemyCharacter("images/enemyWarrior64.png", 256, 192);
 Coins coinsInGame;
 Attack* attack = new Attack();
-
 Battle* battle = new Battle(*player, *enemy1);
+
+int stage = 0; //0 - battle, 1 - 2d word
 //Battle* battle = new Battle();
 
 void draw2dWorld() {
@@ -42,10 +43,17 @@ void draw2dWorld() {
 }
 
 void drawBattle() {
+    //sf::Text textEnemyHP = battle->getTextEnemyHP();
+    //sf::Text textPlayerHP = battle->getTextPlayerHP();
+
     mainWindow->window.clear(sf::Color::White);
     mainWindow->window.draw(battle->getSpriteMenu()); //drawing sprite of actions to choose
     mainWindow->window.draw(battle->getSpritePlayer());   //drawing player on the screen
     mainWindow->window.draw(battle->getSpriteEnemy());    //drawing enemy on the screen
+    //mainWindow->window.draw(textEnemyHP);
+    //mainWindow->window.draw(textPlayerHP);
+    //mainWindow->window.draw(battle->getTextEnemyHP());
+    //mainWindow->window.draw(battle->getTextPlayerHP());
     mainWindow->window.display();
 }
 
@@ -88,20 +96,29 @@ void updateInput() {
 //update input battle
 void updateInputBattle() {
     sf::Event event;
-
-    while (mainWindow->window.pollEvent(event)) {
-        if (event.type == sf::Event::KeyPressed) {
-            if (event.key.code == sf::Keyboard::A) {
-                battle->chooseAction('A', *player, attack, mainWindow); //if A, change chosen action to the left
+    if (battle->getBattleResult() == 1) {
+        std::cout << "\nEnemy 0HP\nYou won\n";
+        stage = 1;
+    }
+    else if (battle->getBattleResult() == -1) {
+        std::cout << "\nPlayer 0HP\nYou lost\n";
+        stage = 1;
+    }
+    else {
+        while (mainWindow->window.pollEvent(event)) {
+            if (event.type == sf::Event::KeyPressed) {
+                if (event.key.code == sf::Keyboard::A) {
+                    battle->chooseAction('A', *player, attack, mainWindow); //if A, change chosen action to the left
+                }
+                if (event.key.code == sf::Keyboard::D) {
+                    battle->chooseAction('D', *player, attack, mainWindow); //if D, change chosen action to the right
+                }
+                if (event.key.code == sf::Keyboard::E) {
+                    battle->chooseAction('E', *player, attack, mainWindow); //if E, do action
+                }
             }
-            if (event.key.code == sf::Keyboard::D) {
-                battle->chooseAction('D', *player, attack, mainWindow); //if D, change chosen action to the right
-            }
-            if (event.key.code == sf::Keyboard::E) {
-                battle->chooseAction('E', *player, attack, mainWindow); //if E, do action
-            }
+            if (event.key.code == sf::Keyboard::Escape || event.type == sf::Event::Closed) mainWindow->window.close(); //if escape, exit game
         }
-        if (event.key.code == sf::Keyboard::Escape || event.type == sf::Event::Closed) mainWindow->window.close(); //if escape, exit game
     }
 }
 
@@ -110,14 +127,15 @@ int main()
     mainWindow->window.setFramerateLimit(20);
     while (mainWindow->window.isOpen())
     {
-        //update input         //draw all sprites on 2d map
-        //update the game
-        //updateInput();
-        //draw2dWorld(); 
 
-
-        updateInputBattle();
-        drawBattle();
+        if (stage == 0) { //render battle
+            updateInputBattle();
+            drawBattle();
+        }
+        else if (stage == 1) { //render 2d world
+            updateInput();
+            draw2dWorld();
+        }
     }
 
     return 0;

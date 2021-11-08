@@ -10,10 +10,12 @@
 class Battle
 {
 	int playerHP{};	//reset the playerHP to 
+	sf::Text textPlayerHP;
 	sf::Texture texturePlayer;
 	sf::Vector2f posPlayer;
 	sf::Sprite spritePlayer;
 	bool playerTurn = true;
+	int battleResult = 0;
 
 	sf::Texture textureBattleField;		// texture and sprite of the background
 	sf::Sprite spriteBattleField;
@@ -24,6 +26,7 @@ class Battle
 	int attackChoice{};
 
 	int enemyHP{};	//reset the enemyHP to zero
+	sf::Text textEnemyHP;
 	sf::Texture textureEnemy;
 	sf::Vector2f posEnemy;
 	sf::Sprite spriteEnemy;
@@ -32,6 +35,7 @@ class Battle
 	sf::Vector2f posAttack;
 	sf::Sprite attackSprite;
 
+	void initText();
 	void setPlayer(PlayerCharacter);
 	void setEnemy(EnemyCharacter);
 	void setPlayerHP(int);	//setting playerHP to current
@@ -45,7 +49,8 @@ class Battle
 
 	void actionsMenu(std::string, float, float);
 	bool setUpSpriteActionsMenu(std::string); //setting texture and then using setUpSprite to set sprite
-	
+	void playerAttack(int a);
+	void checkWin();
 	//unused and undeclared								  
 	//void setUpAttackChoice();
 	//void updateSpriteAttackChoice();
@@ -62,6 +67,9 @@ public:
 	sf::Sprite getSpritePlayer();
 	sf::Sprite getSpriteEnemy();
 	sf::Sprite getSpriteAttack();
+	sf::Text getTextEnemyHP();
+	sf::Text getTextPlayerHP();
+	int getBattleResult();
 	//Battle();
 
 };
