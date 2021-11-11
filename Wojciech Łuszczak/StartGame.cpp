@@ -43,15 +43,36 @@ void draw2dWorld() {
 }
 
 void drawBattle() {
-    //sf::Text textEnemyHP = battle->getTextEnemyHP();
-    //sf::Text textPlayerHP = battle->getTextPlayerHP();
+    sf::Font font;
+    if (!font.loadFromFile("arial.ttf")) {
+        return;
+    }    
+    std::vector<sf::Text> textHP;
+    sf::Text textEnemyHP;
+    sf::Text textPlayerHP;
+
+    textPlayerHP.setFont(font); // font is a sf::Font
+    textEnemyHP.setFont(font);
+    
+    textPlayerHP.setString(std::to_string(battle->getPlayerHP())); // set the string to display
+    textEnemyHP.setString(std::to_string(battle->getEnemyHP()));
+    
+    textPlayerHP.setCharacterSize(24); // set the character size
+    textEnemyHP.setCharacterSize(24);
+    
+    textPlayerHP.setFillColor(sf::Color::Red); // set the color
+    textEnemyHP.setFillColor(sf::Color::Red);
+
+    textPlayerHP.setPosition(3 * 64, 4 * 64);
+    textEnemyHP.setPosition(5 * 64, 4 * 64);
+
 
     mainWindow->window.clear(sf::Color::White);
     mainWindow->window.draw(battle->getSpriteMenu()); //drawing sprite of actions to choose
     mainWindow->window.draw(battle->getSpritePlayer());   //drawing player on the screen
     mainWindow->window.draw(battle->getSpriteEnemy());    //drawing enemy on the screen
-    //mainWindow->window.draw(textEnemyHP);
-    //mainWindow->window.draw(textPlayerHP);
+    mainWindow->window.draw(textEnemyHP);
+    mainWindow->window.draw(textPlayerHP);
     //mainWindow->window.draw(battle->getTextEnemyHP());
     //mainWindow->window.draw(battle->getTextPlayerHP());
     mainWindow->window.display();

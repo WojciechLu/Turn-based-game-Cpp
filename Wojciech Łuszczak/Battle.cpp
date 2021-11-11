@@ -63,11 +63,11 @@ sf::Sprite Battle::getSpriteEnemy() {
 sf::Sprite Battle::getSpriteAttack() {
     return this->attackSprite;
 }
-sf::Text Battle::getTextEnemyHP() {
-    return this->textEnemyHP;
+int Battle::getPlayerHP() {
+    return this->playerHP;
 }
-sf::Text Battle::getTextPlayerHP() {
-    return this->textPlayerHP;
+int Battle::getEnemyHP() {
+    return this->enemyHP;
 }
 int Battle::getBattleResult() {
     return this->battleResult;
@@ -134,20 +134,7 @@ void Battle::playerAttack(int a) {
 }
 
 void Battle::initText() {
-    sf::Font font;
-    font.loadFromFile("arial.ttf");
-    textPlayerHP.setFont(font); // font is a sf::Font
-    textEnemyHP.setFont(font);
-    
-    textPlayerHP.setString(std::to_string(playerHP)); // set the string to display
-    textEnemyHP.setString(std::to_string(enemyHP));
-    
-    textPlayerHP.setCharacterSize(24); // set the character size
-    textEnemyHP.setCharacterSize(24);
-    
-    textPlayerHP.setFillColor(sf::Color::Red); // set the color
-    textEnemyHP.setFillColor(sf::Color::Red);
 
-    textPlayerHP.setPosition(3 * 64, 4 * 64);
-    textEnemyHP.setPosition(5 * 64, 4 * 64);
+   
+    
 }

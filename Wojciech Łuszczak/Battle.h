@@ -67,8 +67,8 @@ public:
 	sf::Sprite getSpritePlayer();
 	sf::Sprite getSpriteEnemy();
 	sf::Sprite getSpriteAttack();
-	sf::Text getTextEnemyHP();
-	sf::Text getTextPlayerHP();
+	int getPlayerHP();
+	int getEnemyHP();
 	int getBattleResult();
 	//Battle();
 
