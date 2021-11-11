@@ -14,7 +14,8 @@
 
 
 WindowGame* mainWindow = new WindowGame(576, 576, "Game");  // created obj mainWindow with consturcor: size 512x512 with title name: Game
-GameWorld gameWorld = GameWorld();                          //world class constructor
+GameWorld gameWorld = GameWorld();  //world class constructor
+StateMachine states(true, false);
 PlayerCharacter* player = new PlayerCharacter("images/character64.png", 192, 256); //player character class constructor on pos(192, 256) with texture character64
 EnemyCharacter* enemy1 = new EnemyCharacter("images/enemyWarrior64.png", 256, 192);
 Coins coinsInGame;
@@ -63,8 +64,8 @@ void drawBattle() {
     textPlayerHP.setFillColor(sf::Color::Red); // set the color
     textEnemyHP.setFillColor(sf::Color::Red);
 
-    textPlayerHP.setPosition(3 * 64, 4 * 64);
-    textEnemyHP.setPosition(5 * 64, 4 * 64);
+    textPlayerHP.setPosition(3.5 * 64, 4 * 64);
+    textEnemyHP.setPosition(5.5 * 64, 4 * 64);
 
 
     mainWindow->window.clear(sf::Color::White);
@@ -119,11 +120,13 @@ void updateInputBattle() {
     sf::Event event;
     if (battle->getBattleResult() == 1) {
         std::cout << "\nEnemy 0HP\nYou won\n";
-        stage = 1;
+        states.battle2World();
+        return;
     }
     else if (battle->getBattleResult() == -1) {
         std::cout << "\nPlayer 0HP\nYou lost\n";
-        stage = 1;
+        states.battle2World();
+        return;
     }
     else {
         while (mainWindow->window.pollEvent(event)) {
@@ -149,11 +152,11 @@ int main()
     while (mainWindow->window.isOpen())
     {
 
-        if (stage == 0) { //render battle
+        if (states.getIsBattle()) { //render battle
             updateInputBattle();
             drawBattle();
         }
-        else if (stage == 1) { //render 2d world
+        else if (states.getIsWorld()) { //render 2d world
             updateInput();
             draw2dWorld();
         }

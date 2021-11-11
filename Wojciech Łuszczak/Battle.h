@@ -3,6 +3,7 @@
 #include "playerCharacter.h"
 #include "EnemyCharacter.h"
 #include "Attack.h"
+#include "windowGame.h"
 
 #ifndef BATTLE_H
 #define BATTLE_H
@@ -35,7 +36,6 @@ class Battle
 	sf::Vector2f posAttack;
 	sf::Sprite attackSprite;
 
-	void initText();
 	void setPlayer(PlayerCharacter);
 	void setEnemy(EnemyCharacter);
 	void setPlayerHP(int);	//setting playerHP to current

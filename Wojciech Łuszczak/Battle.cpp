@@ -5,7 +5,6 @@ Battle::Battle(PlayerCharacter player, EnemyCharacter enemy) {  //constructor, g
     actionsMenu("images/actionMenu/attackSwordsman/interface.png", 2.5 * 64, 6 * 64);
     setPlayer(player);
     setEnemy(enemy);
-    initText();
 }
 
 void Battle::setPlayer(PlayerCharacter player) { //setting player data in constructor
@@ -131,10 +130,4 @@ void Battle::playerAttack(int a) {
     else {
         std::cout << "Missed \n";
     }
-}
-
-void Battle::initText() {
-
-   
-    
 }
