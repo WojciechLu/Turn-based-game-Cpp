@@ -18,8 +18,8 @@ class Battle
 	bool playerTurn = true;
 	int battleResult = 0;
 
-	sf::Texture textureBattleField;		// texture and sprite of the background
-	sf::Sprite spriteBattleField;
+	sf::Texture textureBg;		// texture and sprite of the background
+	sf::Sprite spriteBg;
 
 	sf::Texture textureActionsMenu;	//texture and sprite of the player's option to attack
 	sf::Vector2f posActionsMenu;
@@ -40,15 +40,15 @@ class Battle
 	void setEnemy(EnemyCharacter);
 	void setPlayerHP(int);	//setting playerHP to current
 	void setEnemyHP(int);
-
+	void setUpBackground(std::string, sf::IntRect);
 	//ideas to add
 	//void setPlayerTurn(); //setting `true` or `false` to playerTurn
 	//bool whoWon(); //return true if player won, return false if enemy won
 	//void setPlayerSprite(PlayerCharacter* player); //getting player texture and sprite and setting it
 	//void setEnemySprite(EnemyCharacter* enemy);
 
-	void actionsMenu(std::string, float, float);
-	bool setUpSpriteActionsMenu(std::string); //setting texture and then using setUpSprite to set sprite
+	void actionsMenu(std::string);
+	bool setUpSprite(std::string, sf::IntRect, sf::Texture*, sf::Sprite*); //setting texture and then using setUpSprite to set sprite
 	void playerAttack(int a);
 	void checkWin();
 	//unused and undeclared								  
@@ -61,12 +61,13 @@ public:
 
 	//void chooseAction(char, Attack); //changing spell choice by 'A' or 'D' key
 	void chooseAction(char, PlayerCharacter, Attack*, WindowGame*); //changing texture sprite to next or previous attack, used in StartGame
-	Battle(PlayerCharacter, EnemyCharacter); //constructor, get player and enemy informations and setting to battle class
+	Battle(PlayerCharacter); //constructor, get player and enemy informations and setting to battle class
 
 	sf::Sprite getSpriteMenu();
 	sf::Sprite getSpritePlayer();
 	sf::Sprite getSpriteEnemy();
 	sf::Sprite getSpriteAttack();
+	sf::Sprite getSpriteBg();
 	int getPlayerHP();
 	int getEnemyHP();
 	int getBattleResult();

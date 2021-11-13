@@ -1,10 +1,12 @@
 #include "Battle.h"
 #include <iostream>
 
-Battle::Battle(PlayerCharacter player, EnemyCharacter enemy) {  //constructor, get player and enemy informations and setting to battle class
-    actionsMenu("images/actionMenu/attackSwordsman/interface.png", 2.5 * 64, 6 * 64);
+Battle::Battle(PlayerCharacter player) {  //constructor, get player and enemy informations and setting to battle class
+    actionsMenu("images/actionMenu/attackSwordsman/interface.png");
     setPlayer(player);
-    setEnemy(enemy);
+    sf::IntRect bg(0, 0, 576, 576);
+    setUpBackground("images/battle/background.png", bg);
+    //setEnemy(enemy);
 }
 
 void Battle::setPlayer(PlayerCharacter player) { //setting player data in constructor
@@ -28,23 +30,36 @@ void Battle::setEnemyHP(int a) {
     enemyHP = a;
 }
 
-void Battle::actionsMenu(std::string textureName, float x, float y) { //setting texture and then using setUpSprite to set sprite
-    if (!setUpSpriteActionsMenu(textureName)) {
+//opisaæ dobrze
+void Battle::setUpBackground(std::string textureName, sf::IntRect rect) {
+    if (!setUpSprite(textureName, rect, &this->textureBg, &this->spriteBg)) {
         return;
     }
-    posActionsMenu = sf::Vector2f(x, y); //setting vector of x and y position
-    spriteActionsMenu.setPosition(posActionsMenu); //update the sprite's position
-    setUpSpriteActionsMenu(textureName); //setting the sprite texture
+    this->spriteBg.setPosition(sf::Vector2f(0, 0)); //update the sprite's position
+    setUpSprite(textureName, rect, &this->textureBg, &this->spriteBg); //setting the sprite texture
 }
 
-bool Battle::setUpSpriteActionsMenu(std::string textureName) { //load texture and set texture and textureRect
-    if (!textureActionsMenu.loadFromFile(textureName)) {
+//opisaæ dobrze
+void Battle::actionsMenu(std::string textureName) { //setting texture and then using setUpSprite to set sprite
+    int width = 64 * 4;
+    sf::IntRect rect(this->attackChoice * width, 0, width, 64);
+    if (!setUpSprite(textureName, rect, &textureActionsMenu, &spriteActionsMenu)) {
+        return;
+    }
+    this->posActionsMenu = sf::Vector2f(2.5 * 64, 6 * 64); //setting vector of x and y position
+    this->spriteActionsMenu.setPosition(this->posActionsMenu); //update the sprite's position
+    setUpSprite(textureName, rect, &textureActionsMenu, &spriteActionsMenu); //setting the sprite texture
+}
+
+//NIE ZJEBAÆ OPISU FUNKCJI, NIE POWALIÆ SIÊ W &, * ORAZ ->
+bool Battle::setUpSprite(std::string textureName, sf::IntRect size, sf::Texture* texture, sf::Sprite* sprite) { //load texture and set texture and textureRect
+    if (!texture->loadFromFile(textureName)) {
         return false;
     }
 
-    textureActionsMenu.setSmooth(true); // antialysing
-    spriteActionsMenu.setTexture(textureActionsMenu);
-    spriteActionsMenu.setTextureRect(sf::IntRect(this->attackChoice * 64 * 4, 0, 64 * 4, 64)); //setting the texture size of 64x64
+    texture->setSmooth(true); // antialysing
+    sprite->setTexture(*texture);
+    sprite->setTextureRect(size); //setting the texture size of 64x64
 
     return true;
 }
@@ -61,6 +76,9 @@ sf::Sprite Battle::getSpriteEnemy() {
 }
 sf::Sprite Battle::getSpriteAttack() {
     return this->attackSprite;
+}
+sf::Sprite Battle::getSpriteBg() {
+    return this->spriteBg;
 }
 int Battle::getPlayerHP() {
     return this->playerHP;
@@ -82,7 +100,7 @@ void Battle::chooseAction(char key, PlayerCharacter player, Attack *attack, Wind
             this->attackChoice--;
             //player.setChoiceSkill(attackChoice);
         }
-        setUpSpriteActionsMenu("images/actionMenu/attackSwordsman/interface.png"); //update the choice of attack
+        actionsMenu("images/actionMenu/attackSwordsman/interface.png"); //update the choice of attack
     }
     else if (key == 'D') {
         if (this->attackChoice == 3) {
@@ -93,7 +111,7 @@ void Battle::chooseAction(char key, PlayerCharacter player, Attack *attack, Wind
             this->attackChoice++;
             //player.setChoiceSkill(attackChoice);
         }
-        setUpSpriteActionsMenu("images/actionMenu/attackSwordsman/interface.png"); //update the choice of attack
+        actionsMenu("images/actionMenu/attackSwordsman/interface.png"); //update the choice of attack
     }
     else if (key == 'E') {
         int damageDealt = attack->doAttack(attackChoice, player.getAttackDamage(), this->spriteEnemy.getPosition()); //giving the number of chosen attack and posiotion to (chosen) enemy then recive damage dealt

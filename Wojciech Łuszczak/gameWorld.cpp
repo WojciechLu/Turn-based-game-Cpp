@@ -13,7 +13,7 @@ void GameWorld::setUpInitialState() {
 }
 
 void GameWorld::setUpEnemyPositions() {
-	enemyPositions.clear();
+	//enemyPositions.clear();
 	//enemyPositions.push_back(sf::Vector2i(6, 0)); set in this way positions' of enemies
 }
 

@@ -15,15 +15,13 @@
 
 WindowGame* mainWindow = new WindowGame(576, 576, "Game");  // created obj mainWindow with consturcor: size 512x512 with title name: Game
 GameWorld gameWorld = GameWorld();  //world class constructor
-StateMachine states(true, false);
+StateMachine states(false, true);
 PlayerCharacter* player = new PlayerCharacter("images/character64.png", 192, 256); //player character class constructor on pos(192, 256) with texture character64
 EnemyCharacter* enemy1 = new EnemyCharacter("images/enemyWarrior64.png", 256, 192);
 Coins coinsInGame;
 Attack* attack = new Attack();
-Battle* battle = new Battle(*player, *enemy1);
+Battle battle(*player); // = new Battle(*player, *enemy1);
 
-int stage = 0; //0 - battle, 1 - 2d word
-//Battle* battle = new Battle();
 
 void draw2dWorld() {
     mainWindow->window.clear();
@@ -55,8 +53,8 @@ void drawBattle() {
     textPlayerHP.setFont(font); // font is a sf::Font
     textEnemyHP.setFont(font);
     
-    textPlayerHP.setString(std::to_string(battle->getPlayerHP())); // set the string to display
-    textEnemyHP.setString(std::to_string(battle->getEnemyHP()));
+    textPlayerHP.setString(std::to_string(battle.getPlayerHP())); // set the string to display
+    textEnemyHP.setString(std::to_string(battle.getEnemyHP()));
     
     textPlayerHP.setCharacterSize(24); // set the character size
     textEnemyHP.setCharacterSize(24);
@@ -68,10 +66,11 @@ void drawBattle() {
     textEnemyHP.setPosition(5.5 * 64, 4 * 64);
 
 
-    mainWindow->window.clear(sf::Color::White);
-    mainWindow->window.draw(battle->getSpriteMenu()); //drawing sprite of actions to choose
-    mainWindow->window.draw(battle->getSpritePlayer());   //drawing player on the screen
-    mainWindow->window.draw(battle->getSpriteEnemy());    //drawing enemy on the screen
+    mainWindow->window.clear(sf::Color(37, 19, 26));
+    mainWindow->window.draw(battle.getSpriteBg());
+    mainWindow->window.draw(battle.getSpriteMenu()); //drawing sprite of actions to choose
+    mainWindow->window.draw(battle.getSpritePlayer());   //drawing player on the screen
+    mainWindow->window.draw(battle.getSpriteEnemy());    //drawing enemy on the screen
     mainWindow->window.draw(textEnemyHP);
     mainWindow->window.draw(textPlayerHP);
     //mainWindow->window.draw(battle->getTextEnemyHP());
@@ -80,7 +79,7 @@ void drawBattle() {
 }
 
 //update input 2d map
-void updateInput() {
+void updateInputWorld() {
     sf::Event event;
     
     while (mainWindow->window.pollEvent(event)) {
@@ -118,12 +117,12 @@ void updateInput() {
 //update input battle
 void updateInputBattle() {
     sf::Event event;
-    if (battle->getBattleResult() == 1) {
+    if (battle.getBattleResult() == 1) {
         std::cout << "\nEnemy 0HP\nYou won\n";
         states.battle2World();
         return;
     }
-    else if (battle->getBattleResult() == -1) {
+    else if (battle.getBattleResult() == -1) {
         std::cout << "\nPlayer 0HP\nYou lost\n";
         states.battle2World();
         return;
@@ -132,13 +131,13 @@ void updateInputBattle() {
         while (mainWindow->window.pollEvent(event)) {
             if (event.type == sf::Event::KeyPressed) {
                 if (event.key.code == sf::Keyboard::A) {
-                    battle->chooseAction('A', *player, attack, mainWindow); //if A, change chosen action to the left
+                    battle.chooseAction('A', *player, attack, mainWindow); //if A, change chosen action to the left
                 }
                 if (event.key.code == sf::Keyboard::D) {
-                    battle->chooseAction('D', *player, attack, mainWindow); //if D, change chosen action to the right
+                    battle.chooseAction('D', *player, attack, mainWindow); //if D, change chosen action to the right
                 }
                 if (event.key.code == sf::Keyboard::E) {
-                    battle->chooseAction('E', *player, attack, mainWindow); //if E, do action
+                    battle.chooseAction('E', *player, attack, mainWindow); //if E, do action
                 }
             }
             if (event.key.code == sf::Keyboard::Escape || event.type == sf::Event::Closed) mainWindow->window.close(); //if escape, exit game
@@ -153,11 +152,12 @@ int main()
     {
 
         if (states.getIsBattle()) { //render battle
+            //battle(*player, *enemy1);
             updateInputBattle();
             drawBattle();
         }
         else if (states.getIsWorld()) { //render 2d world
-            updateInput();
+            updateInputWorld();
             draw2dWorld();
         }
     }
