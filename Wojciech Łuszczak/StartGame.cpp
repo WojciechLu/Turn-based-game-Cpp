@@ -15,7 +15,7 @@
 
 WindowGame* mainWindow = new WindowGame(576, 576, "Game");  // created obj mainWindow with consturcor: size 512x512 with title name: Game
 GameWorld gameWorld = GameWorld();  //world class constructor
-StateMachine states(false, true);
+StateMachine states(true, false); //2dWorldState, BattleState
 PlayerCharacter* player = new PlayerCharacter("images/character64.png", 192, 256); //player character class constructor on pos(192, 256) with texture character64
 EnemyCharacter* enemy1 = new EnemyCharacter("images/enemyWarrior64.png", 256, 192);
 Coins coinsInGame;
@@ -37,6 +37,7 @@ void draw2dWorld() {
     }
 
     mainWindow->window.draw(player->getSprite()); //draw player
+    mainWindow->window.draw(enemy1->getSprite());
 
     mainWindow->window.display(); //display all the sprites on the window
 }
@@ -81,7 +82,9 @@ void drawBattle() {
 //update input 2d map
 void updateInputWorld() {
     sf::Event event;
-    
+
+    //if(player->getPosX == )
+    enemy1->isPlayerOn(player, &states);
     while (mainWindow->window.pollEvent(event)) {
         //Checking the key and moving the player
         if (event.type == sf::Event::KeyPressed) {

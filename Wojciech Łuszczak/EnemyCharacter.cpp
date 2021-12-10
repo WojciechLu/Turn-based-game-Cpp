@@ -58,3 +58,9 @@ void EnemyCharacter::setSprite(sf::Sprite newSprite) {
 sf::Sprite EnemyCharacter::getSprite() {
 	return this->sprite;
 }
+
+void EnemyCharacter::isPlayerOn(PlayerCharacter* player, StateMachine* state) { // get pos x, y, get pointer to obj of class player to give coins to inventory
+	if (pos.x == player->getPosX() && pos.y == player->getPosY()) { //for each coin in vector tiles, checking if player is on this coin
+		state->world2Battle();
+	}
+}

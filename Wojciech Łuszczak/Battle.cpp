@@ -10,7 +10,7 @@ Battle::Battle(PlayerCharacter player) {  //constructor, get player and enemy in
 }
 
 void Battle::setPlayer(PlayerCharacter player) { //setting player data in constructor
-    spritePlayer = player.getSprite();
+    spritePlayer = player.getOrginalSprite();
     texturePlayer = player.getTexture();
     spritePlayer.setPosition(3 * 64, 3 * 64);
 
@@ -64,33 +64,37 @@ bool Battle::setUpSprite(std::string textureName, sf::IntRect size, sf::Texture*
     return true;
 }
 
-//getters functions to return private variables outside class
-sf::Sprite Battle::getSpriteMenu() {
-    return this->spriteActionsMenu;
-}
-sf::Sprite Battle::getSpritePlayer() {
-    return this->spritePlayer;
-}
-sf::Sprite Battle::getSpriteEnemy() {
-    return this->spriteEnemy;
-}
-sf::Sprite Battle::getSpriteAttack() {
-    return this->attackSprite;
-}
-sf::Sprite Battle::getSpriteBg() {
-    return this->spriteBg;
-}
-int Battle::getPlayerHP() {
-    return this->playerHP;
-}
-int Battle::getEnemyHP() {
-    return this->enemyHP;
-}
-int Battle::getBattleResult() {
-    return this->battleResult;
+void Battle::playerAttack(int a) {
+    if (a > 0) {
+        if (a >= enemyHP) {
+            std::cout << "DMAGE: " << a << std::endl;
+            setEnemyHP(0);
+            std::cout << "HP: " << enemyHP << std::endl;
+
+        }
+        else {
+            setEnemyHP(enemyHP - a);
+            std::cout << "enemy HP: " << enemyHP << std::endl;
+        }
+    }
+    else {
+        std::cout << "Missed \n";
+    }
 }
 
-void Battle::chooseAction(char key, PlayerCharacter player, Attack *attack, WindowGame *m_window) { //changing texture sprite to next or previous attack, used in StartGame
+void Battle::checkWin() {
+    if (enemyHP == 0) {
+        this->battleResult = 1;   //player won
+        std::cout << battleResult << std::endl;
+    }
+    else if (playerHP == 0) {
+        this->battleResult = -1;  //enemy won
+        std::cout << battleResult << std::endl;
+    }
+}
+
+//public functions
+void Battle::chooseAction(char key, PlayerCharacter player, Attack* attack, WindowGame* m_window) { //changing texture sprite to next or previous attack, used in StartGame
     if (key == 'A') {
         if (this->attackChoice == 0) {
             this->attackChoice = 3;
@@ -121,31 +125,28 @@ void Battle::chooseAction(char key, PlayerCharacter player, Attack *attack, Wind
     }
 }
 
-void Battle::checkWin() {
-    if (enemyHP == 0) {
-        this->battleResult = 1;   //player won
-        std::cout << battleResult << std::endl;
-    }
-    else if (playerHP == 0) {
-        this->battleResult = -1;  //enemy won
-        std::cout << battleResult << std::endl;
-    }
+//getters functions to return private variables outside class
+sf::Sprite Battle::getSpriteMenu() const{
+    return this->spriteActionsMenu;
 }
-
-void Battle::playerAttack(int a) {
-    if (a > 0) {
-        if (a >= enemyHP) {
-            std::cout << "DMAGE: " << a << std::endl;
-            setEnemyHP(0);
-            std::cout << "HP: " << enemyHP << std::endl;
-
-        }
-        else {
-            setEnemyHP(enemyHP - a);
-            std::cout << "enemy HP: " << enemyHP << std::endl;
-        }
-    }
-    else {
-        std::cout << "Missed \n";
-    }
+sf::Sprite Battle::getSpritePlayer() const{
+    return this->spritePlayer;
+}
+sf::Sprite Battle::getSpriteEnemy() const{
+    return this->spriteEnemy;
+}
+sf::Sprite Battle::getSpriteAttack() const{
+    return this->attackSprite;
+}
+sf::Sprite Battle::getSpriteBg() const{
+    return this->spriteBg;
+}
+int Battle::getPlayerHP() const{
+    return this->playerHP;
+}
+int Battle::getEnemyHP() const{
+    return this->enemyHP;
+}
+int Battle::getBattleResult() const{
+    return this->battleResult;
 }

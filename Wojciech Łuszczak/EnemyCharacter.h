@@ -1,5 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "playerCharacter.h"
+#include "StateMachine.h"
 
 #ifndef GAMEENEMY_H
 #define GAMEENEMY_H
@@ -24,6 +26,8 @@ public:
 	void setTexture(sf::Texture);
 	sf::Sprite getSprite();
 	void setSprite(sf::Sprite);
+
+	void isPlayerOn(PlayerCharacter*, StateMachine*); //if player is on enemy, then set statemachine on battle
 };
 
 #endif

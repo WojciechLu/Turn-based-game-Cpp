@@ -63,14 +63,14 @@ public:
 	void chooseAction(char, PlayerCharacter, Attack*, WindowGame*); //changing texture sprite to next or previous attack, used in StartGame
 	Battle(PlayerCharacter); //constructor, get player and enemy informations and setting to battle class
 
-	sf::Sprite getSpriteMenu();
-	sf::Sprite getSpritePlayer();
-	sf::Sprite getSpriteEnemy();
-	sf::Sprite getSpriteAttack();
-	sf::Sprite getSpriteBg();
-	int getPlayerHP();
-	int getEnemyHP();
-	int getBattleResult();
+	sf::Sprite getSpriteMenu() const;
+	sf::Sprite getSpritePlayer() const;
+	sf::Sprite getSpriteEnemy() const;
+	sf::Sprite getSpriteAttack() const;
+	sf::Sprite getSpriteBg() const;
+	int getPlayerHP() const;
+	int getEnemyHP() const;
+	int getBattleResult() const;
 	//Battle();
 
 };

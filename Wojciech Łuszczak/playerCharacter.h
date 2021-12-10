@@ -7,9 +7,12 @@
 
 //class PlayerCharacter : Character
 class PlayerCharacter{
+
+	sf::Texture orginalTexture; //texture of the player
 	sf::Texture texture; //texture of the player
 	int coinsAmount{}; //setting the coinAmount value to 0
 	sf::Vector2f pos; //possition of the player
+	sf::Sprite orginalSprite;
 	sf::Sprite sprite;	//sprite of the player
 	int HP = 20;
 	int attackDamage = 6;
@@ -18,7 +21,7 @@ class PlayerCharacter{
 
 public:
 	PlayerCharacter(std::string, float, float); //constructor: set texture, and x, y
-	bool setUpSprite(std::string);	//set texture to sprite
+	bool setUpSprite(std::string, sf::Texture*, sf::Sprite*);	//set texture to sprite
 	//bool setUpSpriteAttack(std::string);
 	float getPosX() const;
 	float getPosY() const;
@@ -30,6 +33,7 @@ public:
 
 	sf::Texture getTexture() const;
 	void setSprite(sf::Sprite);
+	sf::Sprite getOrginalSprite() const;
 	sf::Sprite getSprite() const;
 
 	void setChoiceSkill(int);
