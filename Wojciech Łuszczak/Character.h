@@ -7,22 +7,25 @@
 
 class Character
 {
+protected:
 	sf::Texture texture; //texture of the player
 	sf::Vector2f pos; //possition of the player
-	int HP = 20;
-	int attackDamage = 5;
+	int HP;
+	int attackDamage;
+	sf::Sprite sprite;	//sprite of the player
 
 public:
-	sf::Sprite sprite;	//sprite of the player
-	bool setUpSprite(std::string);	//set texture to sprite
-	float getPosX();
-	void setPosX(int);
-	float getPosY();
-	void setPosY(int);
+	//bool setUpSprite(std::string);	//set texture to sprite
+	sf::Vector2f getPos();
+	void setPos(int, int);
+	//float getPosY();
+	//void setPosY(int);
 	int getHP();
 	void setHP(int);
 	int getAD();
 	void setAD(int);
+
+	bool setUpSprite(std::string textureName);
 
 };
 

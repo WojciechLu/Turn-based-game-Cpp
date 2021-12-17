@@ -1,17 +1,7 @@
 #include "playerCharacter.h"
 #include <iostream>
 
-PlayerCharacter::PlayerCharacter(std::string textureName, float x, float y) {
-    if (!setUpSprite(textureName, &orginalTexture, &orginalSprite)) {
-        return;
-    }
-    pos = sf::Vector2f(x, y); //setting vector of x and y position
-    orginalSprite.setPosition(pos); //update the sprite's position
-    setUpSprite(textureName, &orginalTexture, &orginalSprite); //setting the spire texture
 
-    sprite.setPosition(pos);
-    setUpSprite(textureName, &texture, &sprite);
-}
 
 //bool PlayerCharacter::setUpSprite(std::string textureName) {
 //    if (!this->texture.loadFromFile(textureName)) {
@@ -22,6 +12,24 @@ PlayerCharacter::PlayerCharacter(std::string textureName, float x, float y) {
 //    this->sprite.setTexture(this->texture);
 //    this->sprite.
 //}
+
+
+PlayerCharacter::PlayerCharacter(std::string textureName, float x, float y, int HP, int DMG)
+{
+    if (!setUpSprite(textureName, &orginalTexture, &orginalSprite)) {
+        return;
+    }
+    setPos(x, y);
+    orginalSprite.setPosition(getPos()); //update the sprite's position
+    setUpSprite(textureName, &orginalTexture, &orginalSprite); //setting the spire texture
+
+    sprite.setPosition(getPos());
+    setUpSprite(textureName, &texture, &sprite);
+}
+
+PlayerCharacter::PlayerCharacter(const PlayerCharacter &p1) {
+    return;
+}
 
 bool PlayerCharacter::setUpSprite(std::string textureName, sf::Texture* texture, sf::Sprite* sprite) { //load texture and set texture and textureRect
     if (!texture->loadFromFile(textureName)) {
@@ -36,15 +44,15 @@ bool PlayerCharacter::setUpSprite(std::string textureName, sf::Texture* texture,
 }
 
 
-float PlayerCharacter::getPosX() const {
-    return this->pos.x;
-}
-float PlayerCharacter::getPosY() const {
-    return this->pos.y;
-}
-int PlayerCharacter::getHP() const {
-    return this->HP;
-}
+//float PlayerCharacter::getPosX() const {
+//    return this->pos.x;
+//}
+//float PlayerCharacter::getPosY() const {
+//    return this->pos.y;
+//}
+//int PlayerCharacter::getHP() const {
+//    return this->HP;
+//}
 int PlayerCharacter::getAttackDamage() const {
     return this->attackDamage;
 }
@@ -78,27 +86,33 @@ int PlayerCharacter::getCoins() const {
 }
 
 void PlayerCharacter::Move(std::string pressedKey) {
+    int x = getPos().x;
+    int y = getPos().y;
     if (pressedKey == "D")
     {
-        pos = sf::Vector2f(pos.x + 64, pos.y); //moving player to right
+        setPos(x + 64, y);
+        //pos = sf::Vector2f(pos.x + 64, pos.y); //moving player to right
         this->setUpSprite("images/character64.png", &texture, &sprite);
-        sprite.setPosition(pos);
+        sprite.setPosition(getPos());
     }
     else if (pressedKey == "A")
     {
-        pos = sf::Vector2f(pos.x - 64, pos.y); //moving player to left
+        setPos(x -+ 64, y);
+        //pos = sf::Vector2f(pos.x - 64, pos.y); //moving player to left
         this->setUpSprite("images/character64left.png", &texture, &sprite);
-        sprite.setPosition(pos);
+        sprite.setPosition(getPos());
     }
     else if (pressedKey == "W")
     {
-        pos = sf::Vector2f(pos.x, pos.y - 64); //moving player to up
-        sprite.setPosition(pos);
+        setPos(x, y - 64);
+        //pos = sf::Vector2f(pos.x, pos.y - 64); //moving player to up
+        sprite.setPosition(getPos());
     }
     else if (pressedKey == "S")
     {
-        pos = sf::Vector2f(pos.x, pos.y + 64); //moving player to down
-        sprite.setPosition(pos);
+        setPos(x, y + 64);
+        //pos = sf::Vector2f(pos.x, pos.y + 64); //moving player to down
+        sprite.setPosition(getPos());
     }
 }
 

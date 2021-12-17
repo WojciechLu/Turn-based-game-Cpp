@@ -1,12 +1,12 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-//#include "Character.h"
+#include "Character.h"
 
 #ifndef GAMEPLAYER_H
 #define GAMEPLAYER_H
 
 //class PlayerCharacter : Character
-class PlayerCharacter{
+class PlayerCharacter : public Character{
 
 	sf::Texture orginalTexture; //texture of the player
 	sf::Texture texture; //texture of the player
@@ -14,18 +14,19 @@ class PlayerCharacter{
 	sf::Vector2f pos; //possition of the player
 	sf::Sprite orginalSprite;
 	sf::Sprite sprite;	//sprite of the player
-	int HP = 20;
-	int attackDamage = 6;
+	int HP;
+	int attackDamage;
 	int choiceSkill{};
 
 
 public:
-	PlayerCharacter(std::string, float, float); //constructor: set texture, and x, y
+	PlayerCharacter(std::string textureName, float x, float y, int HP, int DMG); //constructor: set texture, and x, y
+	PlayerCharacter(const PlayerCharacter& p1);
 	bool setUpSprite(std::string, sf::Texture*, sf::Sprite*);	//set texture to sprite
 	//bool setUpSpriteAttack(std::string);
-	float getPosX() const;
-	float getPosY() const;
-	int getHP() const;
+	//float getPosX() const;
+	//float getPosY() const;
+	//int getHP() const;
 	int getAttackDamage() const;
 
 	void setCoins(int coins);

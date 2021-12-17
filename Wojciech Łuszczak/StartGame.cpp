@@ -16,7 +16,7 @@
 WindowGame* mainWindow = new WindowGame(576, 576, "Game");  // created obj mainWindow with consturcor: size 512x512 with title name: Game
 GameWorld gameWorld = GameWorld();  //world class constructor
 StateMachine states(true, false); //2dWorldState, BattleState
-PlayerCharacter* player = new PlayerCharacter("images/character64.png", 192, 256); //player character class constructor on pos(192, 256) with texture character64
+PlayerCharacter* player = new PlayerCharacter("images/character64.png", 192, 256, 20, 6); //player character class constructor on pos(192, 256) with texture character64
 EnemyCharacter* enemy1 = new EnemyCharacter("images/enemyWarrior64.png", 256, 192);
 Coins coinsInGame;
 Attack* attack = new Attack();
@@ -90,7 +90,7 @@ void updateInputWorld() {
         if (event.type == sf::Event::KeyPressed) {
 
             
-            float playerX = player->getPosX() / 64, playerY = player->getPosY() / 64; //get player pos as value from 0-8
+            float playerX = player->getPos().x / 64, playerY = player->getPos().y / 64; //get player pos as value from 0-8
 
             if (event.key.code == sf::Keyboard::D) {
                 if (gameWorld.tiles[playerY][playerX + 1]->isPassable) player->Move("D"); //checking if next tile is passable
@@ -150,6 +150,7 @@ void updateInputBattle() {
 
 int main()
 {
+    std::cout << "Player HP: " << player->getHP() << std::endl;
     mainWindow->window.setFramerateLimit(20);
     while (mainWindow->window.isOpen())
     {

@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "playerCharacter.h"
+#include "PlayerCharacter.h"
 #include "EnemyCharacter.h"
 #include "Attack.h"
 #include "windowGame.h"
@@ -10,6 +10,7 @@
 
 class Battle
 {
+	//PlayerCharacter p1;
 	int playerHP{};	//reset the playerHP to 
 	sf::Text textPlayerHP;
 	sf::Texture texturePlayer;
@@ -26,6 +27,7 @@ class Battle
 	sf::Sprite spriteActionsMenu;
 	int attackChoice{};
 
+	//EnemyCharacter e1;
 	int enemyHP{};	//reset the enemyHP to zero
 	sf::Text textEnemyHP;
 	sf::Texture textureEnemy;
@@ -61,6 +63,7 @@ public:
 
 	//void chooseAction(char, Attack); //changing spell choice by 'A' or 'D' key
 	void chooseAction(char, PlayerCharacter, Attack*, WindowGame*); //changing texture sprite to next or previous attack, used in StartGame
+	//Battle(PlayerCharacter p, EnemyCharacter e);
 	Battle(PlayerCharacter); //constructor, get player and enemy informations and setting to battle class
 
 	sf::Sprite getSpriteMenu() const;

@@ -9,6 +9,14 @@ EnemyCharacter::EnemyCharacter(std::string textureName, float x, float y) { //co
 	setUpSprite(textureName); //setting the spire texture
 } 
 
+EnemyCharacter::EnemyCharacter(const EnemyCharacter& e1) {
+	return;
+}
+
+EnemyCharacter::~EnemyCharacter() {
+	delete this;
+}
+
 bool EnemyCharacter::setUpSprite(std::string textureName) { //set texture to sprite
 	if (!texture.loadFromFile(textureName)) {
 		return false;
@@ -20,21 +28,21 @@ bool EnemyCharacter::setUpSprite(std::string textureName) { //set texture to spr
 	return true;
 }	
 
-float EnemyCharacter::getPosX() {
-	return this->pos.x;
-}
-
-float EnemyCharacter::getPosY() {
-	return this->pos.y;
-}
-
-int EnemyCharacter::getHP() {
-	return this->HP;
-}
-
-void EnemyCharacter::setHP(int a) {
-	this->HP = a;
-}
+//float EnemyCharacter::getPosX() {
+//	return this->pos.x;
+//}
+//
+//float EnemyCharacter::getPosY() {
+//	return this->pos.y;
+//}
+//
+//int EnemyCharacter::getHP() {
+//	return this->HP;
+//}
+//
+//void EnemyCharacter::setHP(int a) {
+//	this->HP = a;
+//}
 
 int EnemyCharacter::getAD() {
 	return this->attackDamage;
@@ -60,7 +68,8 @@ sf::Sprite EnemyCharacter::getSprite() {
 }
 
 void EnemyCharacter::isPlayerOn(PlayerCharacter* player, StateMachine* state) { // get pos x, y, get pointer to obj of class player to give coins to inventory
-	if (pos.x == player->getPosX() && pos.y == player->getPosY()) { //for each coin in vector tiles, checking if player is on this coin
+	//if(pos.x == player->getPos().x && pos.y == player->getPos().y){
+	if (pos == player->getPos()) { //for each coin in vector tiles, checking if player is on this coin
 		state->world2Battle();
 	}
 }

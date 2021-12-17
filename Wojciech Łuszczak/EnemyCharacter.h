@@ -6,7 +6,7 @@
 #ifndef GAMEENEMY_H
 #define GAMEENEMY_H
 
-class EnemyCharacter{
+class EnemyCharacter : public Character{
 	sf::Texture texture; //texture of the player
 	sf::Vector2f pos; //possition of the player
 	int HP = 20;
@@ -15,11 +15,13 @@ class EnemyCharacter{
 public:
 	sf::Sprite sprite;	//sprite of the player
 	EnemyCharacter(std::string, float, float); //constructor: set texture, and x, y
+	EnemyCharacter(const EnemyCharacter& e1);
+	~EnemyCharacter();
 	bool setUpSprite(std::string);	//set texture to sprite
-	float getPosX();
-	float getPosY();
-	int getHP();
-	void setHP(int);
+	//float getPosX();
+	//float getPosY();
+	//int getHP();
+	//void setHP(int);
 	int getAD();
 	void setAD(int);
 	sf::Texture getTexture();
