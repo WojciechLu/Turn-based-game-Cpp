@@ -20,7 +20,7 @@ PlayerCharacter* player = new PlayerCharacter("images/character64.png", 192, 256
 EnemyCharacter* enemy1 = new EnemyCharacter("images/enemyWarrior64.png", 256, 192);
 Coins coinsInGame;
 Attack* attack = new Attack();
-Battle battle(*player); // = new Battle(*player, *enemy1);
+//Battle battle(*player); // = new Battle(*player, *enemy1);
 
 
 void draw2dWorld() {
@@ -42,7 +42,7 @@ void draw2dWorld() {
     mainWindow->window.display(); //display all the sprites on the window
 }
 
-void drawBattle() {
+/*void drawBattle() {
     sf::Font font;
     if (!font.loadFromFile("arial.ttf")) {
         return;
@@ -78,7 +78,7 @@ void drawBattle() {
     //mainWindow->window.draw(battle->getTextPlayerHP());
     mainWindow->window.display();
 }
-
+*/
 //update input 2d map
 void updateInputWorld() {
     sf::Event event;
@@ -118,7 +118,7 @@ void updateInputWorld() {
 }
 
 //update input battle
-void updateInputBattle() {
+/*void updateInputBattle() {
     sf::Event event;
     if (battle.getBattleResult() == 1) {
         std::cout << "\nEnemy 0HP\nYou won\n";
@@ -147,7 +147,7 @@ void updateInputBattle() {
         }
     }
 }
-
+*/
 int main()
 {
     std::cout << "Player HP: " << player->getHP() << std::endl;
@@ -155,12 +155,14 @@ int main()
     while (mainWindow->window.isOpen())
     {
 
-        if (states.getIsBattle()) { //render battle
+       /* if (states.getIsBattle()) { //render battle
             //battle(*player, *enemy1);
-            updateInputBattle();
-            drawBattle();
+            //updateInputBattle();
+            //drawBattle();
         }
-        else if (states.getIsWorld()) { //render 2d world
+        */
+        //else 
+        if (states.getIsWorld()) { //render 2d world
             updateInputWorld();
             draw2dWorld();
         }

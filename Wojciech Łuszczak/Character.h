@@ -24,6 +24,10 @@ public:
 	void setHP(int);
 	int getAD();
 	void setAD(int);
+	sf::Texture getTexture();
+	void setTexture(sf::Texture);
+	sf::Sprite getSprite();
+	void setSprite(sf::Sprite);
 
 	bool setUpSprite(std::string textureName);
 

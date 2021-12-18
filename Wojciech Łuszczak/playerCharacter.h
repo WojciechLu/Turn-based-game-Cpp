@@ -21,21 +21,11 @@ class PlayerCharacter : public Character{
 
 public:
 	PlayerCharacter(std::string textureName, float x, float y, int HP, int DMG); //constructor: set texture, and x, y
-	PlayerCharacter(const PlayerCharacter& p1);
+	PlayerCharacter(PlayerCharacter& p1);
 	bool setUpSprite(std::string, sf::Texture*, sf::Sprite*);	//set texture to sprite
-	//bool setUpSpriteAttack(std::string);
-	//float getPosX() const;
-	//float getPosY() const;
-	//int getHP() const;
-	int getAttackDamage() const;
 
 	void setCoins(int coins);
 	int getCoins() const;
-
-	sf::Texture getTexture() const;
-	void setSprite(sf::Sprite);
-	sf::Sprite getOrginalSprite() const;
-	sf::Sprite getSprite() const;
 
 	void setChoiceSkill(int);
 	int getChoiceSkill() const;

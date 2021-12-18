@@ -40,6 +40,21 @@ void Character::setAD(int a) {
 	this->attackDamage = a;
 }
 
+sf::Texture Character::getTexture() {
+	return this->texture;
+}
+
+void Character::setTexture(sf::Texture newTexture) {
+	this->texture = newTexture;
+}
+
+void Character::setSprite(sf::Sprite newSprite) {
+	this->sprite = newSprite;
+}
+sf::Sprite Character::getSprite() {
+	return this->sprite;
+}
+
 bool Character::setUpSprite(std::string textureName) { //set texture to sprite
 	if (!texture.loadFromFile(textureName)) {
 		return false;

@@ -22,12 +22,7 @@ public:
 	//float getPosY();
 	//int getHP();
 	//void setHP(int);
-	int getAD();
-	void setAD(int);
-	sf::Texture getTexture();
-	void setTexture(sf::Texture);
-	sf::Sprite getSprite();
-	void setSprite(sf::Sprite);
+
 
 	void isPlayerOn(PlayerCharacter*, StateMachine*); //if player is on enemy, then set statemachine on battle
 };
