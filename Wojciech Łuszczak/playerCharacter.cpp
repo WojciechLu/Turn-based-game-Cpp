@@ -27,14 +27,14 @@ PlayerCharacter::PlayerCharacter(std::string textureName, float x, float y, int 
     setUpSprite(textureName, &texture, &sprite);
 }
 
-PlayerCharacter::PlayerCharacter(PlayerCharacter &p1) {
+PlayerCharacter::PlayerCharacter(const PlayerCharacter &p1) {
     this->orginalTexture = p1.texture;
     this->texture = this->orginalTexture;
-    setPos(p1.getPos().x, p1.getPos().y);
-    setSprite(p1.getSprite());
-    this->orginalSprite = getSprite();
-    setHP(p1.getHP());
-    setAD(p1.getAD());
+    this->setPos(p1.pos.x, p1.pos.y);
+    setSprite(p1.sprite);
+    this->orginalSprite = sprite;
+    setHP(p1.HP);
+    setAD(p1.attackDamage);
 }
 
 bool PlayerCharacter::setUpSprite(std::string textureName, sf::Texture* texture, sf::Sprite* sprite) { //load texture and set texture and textureRect
@@ -48,17 +48,6 @@ bool PlayerCharacter::setUpSprite(std::string textureName, sf::Texture* texture,
     setSprite(this->sprite);
     return true;
 }
-
-
-//float PlayerCharacter::getPosX() const {
-//    return this->pos.x;
-//}
-//float PlayerCharacter::getPosY() const {
-//    return this->pos.y;
-//}
-//int PlayerCharacter::getHP() const {
-//    return this->HP;
-//}
 
 void PlayerCharacter::setChoiceSkill(int a) {
     this->choiceSkill = a;

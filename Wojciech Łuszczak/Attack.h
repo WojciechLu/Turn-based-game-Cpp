@@ -23,10 +23,11 @@ public:
 	int doAttack(int, int, sf::Vector2f); //set postion where should be displeyed
 	bool setUpSprite(std::string);	//set texture to sprite
 	Attack(); //constructor
-	void animation(WindowGame*); //not working proprely animation, frames animation overlap
+	//void animation(WindowGame*); //not working proprely animation, frames animation overlap
 
 	//attacks
 	int SwordAttack(int);
+	int BlockSkill();
 	int BashAttack(int);
 };
 

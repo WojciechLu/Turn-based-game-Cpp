@@ -21,7 +21,7 @@ class PlayerCharacter : public Character{
 
 public:
 	PlayerCharacter(std::string textureName, float x, float y, int HP, int DMG); //constructor: set texture, and x, y
-	PlayerCharacter(PlayerCharacter& p1);
+	PlayerCharacter(const PlayerCharacter &p1);
 	bool setUpSprite(std::string, sf::Texture*, sf::Sprite*);	//set texture to sprite
 
 	void setCoins(int coins);

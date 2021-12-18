@@ -3,24 +3,29 @@
 #include <cstdlib>
 
 int Attack::SwordAttack(int a) {
-	int missed = rand() % 3;
+	srand(time(NULL));
+	int missed = rand() % 5;
 	int crit = 1 + rand() % 100;
-	int dmg = -1;
 
 	if (missed == 0) {
 		return -1;
 	}
 	else {
 		if (crit > 90) {
-			dmg = 1.5 * a;
+			return 1.5 * a;
 		}
 		else {
-			dmg = a;
+			return a;
 		}
 	}
 }
 
+int Attack::BlockSkill() {
+	return -2;
+}
+
 int Attack::BashAttack(int a) {
+	srand(time(NULL));
 	int missed = rand() % 3;
 	int crit = 1 + rand() % 100;
 
@@ -92,32 +97,32 @@ bool Attack::setUpSprite(std::string textureName){
 
 //				TO DO!!!
 //				  !!!!
-void Attack::animation(WindowGame* m_window) { //repair in the future 
-	sf::Clock clock;
-	sf::IntRect rectSourceSprite(0, 0, 64, 64);
-	sf::Sprite sprite(textureAttack, rectSourceSprite);
-	sprite.setPosition(spriteAttack.getPosition());
-	rectSourceSprite.left = 0;
-
-	spriteAnimation.clear();
-
-	for (int i = 0; i < 7; i++) {
-		sprite.setTextureRect(rectSourceSprite);
-		spriteAnimation.push_back(sprite);
-		rectSourceSprite.left += 64;
-	}
-
-	//m_window->window.draw(spriteAnimation[0]);
-	for (int i = 1; i < 7; i++) {
-		//if (clock.getElapsedTime().asSeconds() > 0.05f) {
-		//	//spriteAnimation.erase(spriteAnimation.begin());
-		//	clock.restart();
-		//}
-		//spriteAnimation[i-1].setColor(sf::Color::Transparent);
-		//m_window->window.draw(spriteAnimation[i-1]);
-		m_window->window.draw(spriteAnimation[i]);
-		m_window->window.display();
-	}
-	setUpInitial("images/attackAnimation/blank.png", spriteAttack.getPosition().x, spriteAttack.getPosition().y);
-
-}
+//void Attack::animation(WindowGame* m_window) { //repair in the future 
+//	sf::Clock clock;
+//	sf::IntRect rectSourceSprite(0, 0, 64, 64);
+//	sf::Sprite sprite(textureAttack, rectSourceSprite);
+//	sprite.setPosition(spriteAttack.getPosition());
+//	rectSourceSprite.left = 0;
+//
+//	spriteAnimation.clear();
+//
+//	for (int i = 0; i < 7; i++) {
+//		sprite.setTextureRect(rectSourceSprite);
+//		spriteAnimation.push_back(sprite);
+//		rectSourceSprite.left += 64;
+//	}
+//
+//	//m_window->window.draw(spriteAnimation[0]);
+//	for (int i = 1; i < 7; i++) {
+//		//if (clock.getElapsedTime().asSeconds() > 0.05f) {
+//		//	//spriteAnimation.erase(spriteAnimation.begin());
+//		//	clock.restart();
+//		//}
+//		//spriteAnimation[i-1].setColor(sf::Color::Transparent);
+//		//m_window->window.draw(spriteAnimation[i-1]);
+//		m_window->window.draw(spriteAnimation[i]);
+//		m_window->window.display();
+//	}
+//	setUpInitial("images/attackAnimation/blank.png", spriteAttack.getPosition().x, spriteAttack.getPosition().y);
+//
+//}

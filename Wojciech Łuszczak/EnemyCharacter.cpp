@@ -10,7 +10,11 @@ EnemyCharacter::EnemyCharacter(std::string textureName, float x, float y) { //co
 } 
 
 EnemyCharacter::EnemyCharacter(const EnemyCharacter& e1) {
-	return;
+	setTexture(e1.texture);
+	setPos(e1.pos.x, e1.pos.y);
+	setSprite(e1.sprite);
+	setHP(e1.HP);
+	setAD(e1.attackDamage);
 }
 
 bool EnemyCharacter::setUpSprite(std::string textureName) { //set texture to sprite
@@ -28,9 +32,11 @@ bool EnemyCharacter::setUpSprite(std::string textureName) { //set texture to spr
 
 
 
-void EnemyCharacter::isPlayerOn(PlayerCharacter* player, StateMachine* state) { // get pos x, y, get pointer to obj of class player to give coins to inventory
+bool EnemyCharacter::isPlayerOn(PlayerCharacter* player, StateMachine* state) { // get pos x, y, get pointer to obj of class player to give coins to inventory
 	//if(pos.x == player->getPos().x && pos.y == player->getPos().y){
 	if (pos == player->getPos()) {
 		state->world2Battle();
+		return true;
 	}
+	return false;
 }

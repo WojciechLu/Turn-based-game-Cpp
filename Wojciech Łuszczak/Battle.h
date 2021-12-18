@@ -10,11 +10,13 @@
 
 class Battle
 {
-	PlayerCharacter player;
-	EnemyCharacter enemy;
+
 
 	bool playerTurn;
-	int battleResult;
+	short battleResult;
+
+	short isOnFire = 0;
+	bool isShieldOn = false;
 
 	sf::Texture textureBg;		// texture and sprite of the background
 	sf::Sprite spriteBg;
@@ -28,8 +30,12 @@ class Battle
 	sf::Vector2f posAttack;
 	sf::Sprite attackSprite;
 
+
 	void setUpBackground(std::string, sf::IntRect);
+	bool setUpSprite(std::string, sf::IntRect, sf::Texture*, sf::Sprite*); //setting texture and then using setUpSprite to set sprite
+
 	void playerAttack(int a);
+	void actionsMenu(std::string);
 	void checkWin();
 
 
@@ -71,22 +77,22 @@ class Battle
 	//void setEnemySprite(EnemyCharacter* enemy);
 
 	//void actionsMenu(std::string);
-	//bool setUpSprite(std::string, sf::IntRect, sf::Texture*, sf::Sprite*); //setting texture and then using setUpSprite to set sprite
 	//void playerAttack(int a);
 	//void checkWin();
 
 
 public:
+	PlayerCharacter player;
+	EnemyCharacter enemy;
+
 	void chooseAction(char key, PlayerCharacter player, Attack* attack, WindowGame* m_window);
-	Battle(PlayerCharacter p, EnemyCharacter e);
+	Battle(const PlayerCharacter &playerPattern, const EnemyCharacter &enemyPattern);
+
 
 	sf::Sprite getSpriteMenu() const;
-	sf::Sprite getSpritePlayer() const;
-	sf::Sprite getSpriteEnemy() const;
 	sf::Sprite getSpriteAttack() const;
 	sf::Sprite getSpriteBg() const;
-	int getPlayerHP() const;
-	int getEnemyHP() const;
+
 	int getBattleResult() const;
 	
 

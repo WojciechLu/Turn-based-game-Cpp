@@ -10,8 +10,8 @@ class Character
 protected:
 	sf::Texture texture; //texture of the player
 	sf::Vector2f pos; //possition of the player
-	int HP;
-	int attackDamage;
+	int HP = 20;
+	int attackDamage = 5;
 	sf::Sprite sprite;	//sprite of the player
 
 public:
