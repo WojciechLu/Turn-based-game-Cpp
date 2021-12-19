@@ -25,15 +25,15 @@ bool Battle::setUpSprite(std::string textureName, sf::IntRect size, sf::Texture 
 
 void Battle::playerAttack(int a) {
     if (a > 0) {
-        if (a >= this->enemy.getHP()) {
+        if (a >= this->enemy->getHP()) {
             std::cout << "DMAGE: " << a << std::endl;
-            enemy.setHP(0);
-            std::cout << "HP: " << this->enemy.getHP() << std::endl;
+            enemy->setHP(0);
+            std::cout << "HP: " << this->enemy->getHP() << std::endl;
 
         }
         else {
-            enemy.setHP(this->enemy.getHP() - a);
-            std::cout << "enemy HP: " << this->enemy.getHP() << std::endl;
+            enemy->setHP(this->enemy->getHP() - a);
+            std::cout << "enemy HP: " << this->enemy->getHP() << std::endl;
         }
     }
     else if (a == -1) {
@@ -57,11 +57,11 @@ void Battle::actionsMenu(std::string textureName) { //setting texture and then u
 }
 
 void Battle::checkWin() {
-    if (this->enemy.getHP() == 0) {
+    if (this->enemy->getHP() == 0) {
         this->battleResult = 1;   //player won
         std::cout << this->battleResult << std::endl;
     }
-    else if (this->player.getHP() == 0) {
+    else if (this->player->getHP() == 0) {
         this->battleResult = -1;  //enemy won
         std::cout << this->battleResult << std::endl;
     }
@@ -92,15 +92,16 @@ void Battle::chooseAction(char key, PlayerCharacter player, Attack* attack) { //
         actionsMenu("images/actionMenu/attackSwordsman/interface.png"); //update the choice of attack
     }
     else if (key == 'E') {
-        int damageDealt = attack->doAttack(attackChoice, player.getAD(), this->enemy.getSprite().getPosition()); //giving the number of chosen attack and posiotion to (chosen) enemy then recive damage dealt
+        int damageDealt = attack->doAttack(attackChoice, player.getAD(), this->enemy->getSprite().getPosition()); //giving the number of chosen attack and posiotion to (chosen) enemy then recive damage dealt
         playerAttack(damageDealt);
         //attack->animation(m_window); //making animation based on the above data
         checkWin();
     }
 }
 
-Battle::Battle(const PlayerCharacter &playerPattern, const EnemyCharacter &enemyPattern)
-	:player(playerPattern), enemy(enemyPattern){ //wywo³anie konstruktorów kopiuj¹cych dla pól prywatnych klasy bitwy: PlayerCharacter player, EnemyCharacter enemy
+Battle::Battle(PlayerCharacter &playerPattern, EnemyCharacter &enemyPattern)
+	:player(&playerPattern), enemy(&enemyPattern){ //wywo³anie konstruktorów kopiuj¹cych dla pól prywatnych klasy bitwy: PlayerCharacter player, EnemyCharacter enemy
+   
 	this->playerTurn = true; 
     this->battleResult = 0;
     actionsMenu("images/actionMenu/attackSwordsman/interface.png");

@@ -81,12 +81,12 @@ class Battle
 
 
 public:
-	PlayerCharacter player;
-	EnemyCharacter enemy;
+	PlayerCharacter *player;
+	EnemyCharacter *enemy;
 
 	//void chooseAction(char key, PlayerCharacter player, Attack* attack, WindowGame* m_window);
 	void chooseAction(char key, PlayerCharacter player, Attack* attack);
-	Battle(const PlayerCharacter &playerPattern, const EnemyCharacter &enemyPattern);
+	Battle(PlayerCharacter &playerPattern, EnemyCharacter &enemyPattern);
 
 
 	sf::Sprite getSpriteMenu() const;

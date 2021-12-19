@@ -77,8 +77,8 @@ void WindowGame::drawBattle(Battle battle)
     textPlayerHP.setFont(font); // font is a sf::Font
     textEnemyHP.setFont(font);
     
-    textPlayerHP.setString(std::to_string(battle.player.getHP())); // set the string to display
-    textEnemyHP.setString(std::to_string(battle.enemy.getHP()));
+    textPlayerHP.setString(std::to_string(battle.player->getHP())); // set the string to display
+    textEnemyHP.setString(std::to_string(battle.enemy->getHP()));
     
     textPlayerHP.setCharacterSize(24); // set the character size
     textEnemyHP.setCharacterSize(24);
@@ -90,8 +90,10 @@ void WindowGame::drawBattle(Battle battle)
     textEnemyHP.setPosition(5.5 * 64, 4 * 64);
 
 	this->window.clear(sf::Color(37, 19, 26));
+    this->window.draw(battle.getSpriteMenu()); //drawing sprite of actions to choose
 	this->window.draw(battle.getSpriteBg());
-	this->window.draw(battle.player.getSprite());
+	this->window.draw(battle.player->getSprite());
+	this->window.draw(battle.enemy->getSprite());    //drawing enemy on the screen
 	this->window.draw(textPlayerHP);
 	this->window.draw(textEnemyHP);
 	this->window.display();
