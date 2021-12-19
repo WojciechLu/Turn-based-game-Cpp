@@ -102,7 +102,7 @@ bool Attack::setUpSprite(std::string textureName){
 //	sf::IntRect rectSourceSprite(0, 0, 64, 64);
 //	sf::Sprite sprite(textureAttack, rectSourceSprite);
 //	sprite.setPosition(spriteAttack.getPosition());
-//	rectSourceSprite.left = 0;
+//	rectSourceSprite.left = 0;s
 //
 //	spriteAnimation.clear();
 //

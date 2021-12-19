@@ -1,6 +1,5 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "windowGame.h"
 #include "playerCharacter.h"
 
 #ifndef ATTACK_H
@@ -11,7 +10,6 @@ class Attack
 	sf::Vector2f posAttack;
 	sf::Texture textureAttack;
 	sf::Sprite spriteAttack;
-	std::vector<sf::Sprite> spriteAnimation; //vector containing frames of animated attack
 	int damage;
 
 

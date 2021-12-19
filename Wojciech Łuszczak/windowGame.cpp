@@ -63,3 +63,68 @@ void WindowGame::draw2dWorld(GameWorld gameWorld, PlayerCharacter player, EnemyC
 
     this->window.display(); //display all the sprites on the window
 }
+
+void WindowGame::drawBattle(Battle battle)
+{
+    sf::Font font;
+    if (!font.loadFromFile("arial.ttf")) {
+        return;
+    }    
+    std::vector<sf::Text> textHP;
+    sf::Text textEnemyHP;
+    sf::Text textPlayerHP;
+
+    textPlayerHP.setFont(font); // font is a sf::Font
+    textEnemyHP.setFont(font);
+    
+    textPlayerHP.setString(std::to_string(battle.player.getHP())); // set the string to display
+    textEnemyHP.setString(std::to_string(battle.enemy.getHP()));
+    
+    textPlayerHP.setCharacterSize(24); // set the character size
+    textEnemyHP.setCharacterSize(24);
+    
+    textPlayerHP.setFillColor(sf::Color::Red); // set the color
+    textEnemyHP.setFillColor(sf::Color::Red);
+
+    textPlayerHP.setPosition(3.5 * 64, 4 * 64);
+    textEnemyHP.setPosition(5.5 * 64, 4 * 64);
+
+	this->window.clear(sf::Color(37, 19, 26));
+	this->window.draw(battle.getSpriteBg());
+	this->window.draw(battle.player.getSprite());
+	this->window.draw(textPlayerHP);
+	this->window.draw(textEnemyHP);
+	this->window.display();
+}
+
+
+void WindowGame::animation(Attack attackAnimation) { //repair in the future 
+	sf::Clock clock;
+	sf::IntRect rectSourceSprite(0, 0, 64, 64);
+	sf::Sprite sprite(attackAnimation.getTexture(), rectSourceSprite);
+	sprite.setPosition(attackAnimation.getSprite().getPosition());
+	rectSourceSprite.left = 0;
+
+	std::vector<sf::Sprite> spriteAnimation; //vector containing frames of animated attack
+	spriteAnimation.clear();
+
+	for (int i = 0; i < 7; i++) {
+		sprite.setTextureRect(rectSourceSprite);
+		spriteAnimation.push_back(sprite);
+		rectSourceSprite.left += 64;
+	}
+
+	//m_window->window.draw(spriteAnimation[0]);
+	for (int i = 1; i < 7; i++) {
+		//if (clock.getElapsedTime().asSeconds() > 0.05f) {
+		//	//spriteAnimation.erase(spriteAnimation.begin());
+		//	clock.restart();
+		//}
+		//spriteAnimation[i-1].setColor(sf::Color::Transparent);
+		//m_window->window.draw(spriteAnimation[i-1]);
+		this->window.draw(spriteAnimation[i]);
+		this->window.display();
+	}
+	attackAnimation.setUpInitial("images/attackAnimation/blank.png", attackAnimation.getSprite().getPosition().x, attackAnimation.getSprite().getPosition().y);
+
+}

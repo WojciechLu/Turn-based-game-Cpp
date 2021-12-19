@@ -4,20 +4,20 @@
 #include <iostream>
 
 void Battle::setUpBackground(std::string textureName, sf::IntRect rect) {
-    if (!setUpSprite(textureName, rect, &this->textureBg, &this->spriteBg)) {
+    if (!setUpSprite(textureName, rect, this->textureBg, &this->spriteBg)) {
         return;
     }
     this->spriteBg.setPosition(sf::Vector2f(0, 0)); //update the sprite's position
-    setUpSprite(textureName, rect, &this->textureBg, &this->spriteBg); //setting the sprite texture
+    setUpSprite(textureName, rect, this->textureBg, &this->spriteBg); //setting the sprite texture
 }
 
-bool Battle::setUpSprite(std::string textureName, sf::IntRect size, sf::Texture* texture, sf::Sprite* sprite) { //load texture and set texture and textureRect
-    if (!texture->loadFromFile(textureName)) {
+bool Battle::setUpSprite(std::string textureName, sf::IntRect size, sf::Texture &texture, sf::Sprite* sprite) { //load texture and set texture and textureRect
+    if (!texture.loadFromFile(textureName)) {
         return false;
     }
 
-    texture->setSmooth(true); // antialysing
-    sprite->setTexture(*texture);
+    texture.setSmooth(true); // antialysing
+    sprite->setTexture(texture);
     sprite->setTextureRect(size); //setting the texture size of 64x64
 
     return true;
@@ -48,12 +48,12 @@ void Battle::playerAttack(int a) {
 void Battle::actionsMenu(std::string textureName) { //setting texture and then using setUpSprite to set sprite
     int width = 64 * 4;
     sf::IntRect rect(this->attackChoice * width, 0, width, 64);
-    if (!setUpSprite(textureName, rect, &textureActionsMenu, &spriteActionsMenu)) {
+    if (!setUpSprite(textureName, rect, textureActionsMenu, &spriteActionsMenu)) {
         return;
     }
     this->posActionsMenu = sf::Vector2f(2.5 * 64, 6 * 64); //setting vector of x and y position
     this->spriteActionsMenu.setPosition(this->posActionsMenu); //update the sprite's position
-    setUpSprite(textureName, rect, &textureActionsMenu, &spriteActionsMenu); //setting the sprite texture
+    setUpSprite(textureName, rect, textureActionsMenu, &spriteActionsMenu); //setting the sprite texture
 }
 
 void Battle::checkWin() {
@@ -67,7 +67,8 @@ void Battle::checkWin() {
     }
 }
 
-void Battle::chooseAction(char key, PlayerCharacter player, Attack* attack, WindowGame* m_window) { //changing texture sprite to next or previous attack, used in StartGame
+//void Battle::chooseAction(char key, PlayerCharacter player, Attack* attack, WindowGame* m_window); //changing texture sprite to next or previous attack, used in StartGame
+void Battle::chooseAction(char key, PlayerCharacter player, Attack* attack) { //changing texture sprite to next or previous attack, used in StartGame
     if (key == 'A') {
         if (this->attackChoice == 0) {
             this->attackChoice = 3;
@@ -102,6 +103,9 @@ Battle::Battle(const PlayerCharacter &playerPattern, const EnemyCharacter &enemy
 	:player(playerPattern), enemy(enemyPattern){ //wywo³anie konstruktorów kopiuj¹cych dla pól prywatnych klasy bitwy: PlayerCharacter player, EnemyCharacter enemy
 	this->playerTurn = true; 
     this->battleResult = 0;
+    actionsMenu("images/actionMenu/attackSwordsman/interface.png");
+    sf::IntRect bg(0, 0, 576, 576);
+    setUpBackground("images/battle/background.png", bg);
 }
 
 

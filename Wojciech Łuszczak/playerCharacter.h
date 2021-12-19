@@ -14,13 +14,13 @@ class PlayerCharacter : public Character{
 	sf::Vector2f pos; //possition of the player
 	sf::Sprite orginalSprite;
 	sf::Sprite sprite;	//sprite of the player
-	int HP;
-	int attackDamage;
+	int HP = 20;
+	int attackDamage = 6;
 	int choiceSkill{};
 
 
 public:
-	PlayerCharacter(std::string textureName, float x, float y, int HP, int DMG); //constructor: set texture, and x, y
+	PlayerCharacter(std::string textureName, float x, float y); //constructor: set texture, and x, y
 	PlayerCharacter(const PlayerCharacter &p1);
 	bool setUpSprite(std::string, sf::Texture*, sf::Sprite*);	//set texture to sprite
 

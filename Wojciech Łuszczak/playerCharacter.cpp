@@ -14,7 +14,7 @@
 //}
 
 
-PlayerCharacter::PlayerCharacter(std::string textureName, float x, float y, int HP, int DMG)
+PlayerCharacter::PlayerCharacter(std::string textureName, float x, float y)
 {
     if (!setUpSprite(textureName, &orginalTexture, &orginalSprite)) {
         return;
@@ -25,6 +25,8 @@ PlayerCharacter::PlayerCharacter(std::string textureName, float x, float y, int 
 
     sprite.setPosition(getPos());
     setUpSprite(textureName, &texture, &sprite);
+
+    std::cout << "HP: " << HP << std::endl;
 }
 
 PlayerCharacter::PlayerCharacter(const PlayerCharacter &p1) {

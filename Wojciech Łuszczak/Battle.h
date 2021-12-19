@@ -3,7 +3,6 @@
 #include "PlayerCharacter.h"
 #include "EnemyCharacter.h"
 #include "Attack.h"
-#include "windowGame.h"
 
 #ifndef BATTLE_H
 #define BATTLE_H
@@ -32,7 +31,7 @@ class Battle
 
 
 	void setUpBackground(std::string, sf::IntRect);
-	bool setUpSprite(std::string, sf::IntRect, sf::Texture*, sf::Sprite*); //setting texture and then using setUpSprite to set sprite
+	bool setUpSprite(std::string, sf::IntRect, sf::Texture& texture, sf::Sprite*); //setting texture and then using setUpSprite to set sprite
 
 	void playerAttack(int a);
 	void actionsMenu(std::string);
@@ -85,7 +84,8 @@ public:
 	PlayerCharacter player;
 	EnemyCharacter enemy;
 
-	void chooseAction(char key, PlayerCharacter player, Attack* attack, WindowGame* m_window);
+	//void chooseAction(char key, PlayerCharacter player, Attack* attack, WindowGame* m_window);
+	void chooseAction(char key, PlayerCharacter player, Attack* attack);
 	Battle(const PlayerCharacter &playerPattern, const EnemyCharacter &enemyPattern);
 
 
