@@ -9,11 +9,8 @@
 class PlayerCharacter : public Character{
 
 	sf::Texture orginalTexture; //texture of the player
-	sf::Texture texture; //texture of the player
 	int coinsAmount{}; //setting the coinAmount value to 0
-	sf::Vector2f pos; //possition of the player
 	sf::Sprite orginalSprite;
-	sf::Sprite sprite;	//sprite of the player
 	int choiceSkill{};
 
 

@@ -8,11 +8,7 @@
 #define GAMEENEMY_H
 
 class EnemyCharacter : public Character{
-	sf::Texture texture; //texture of the player
-	sf::Vector2f pos; //possition of the player
-
 public:
-	sf::Sprite sprite;	//sprite of the player
 	EnemyCharacter(std::string, float, float); //constructor: set texture, and x, y
 	EnemyCharacter(const EnemyCharacter& e1);
 	bool setUpSprite(std::string);	//set texture to sprite
