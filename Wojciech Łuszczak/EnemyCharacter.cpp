@@ -7,6 +7,9 @@ EnemyCharacter::EnemyCharacter(std::string textureName, float x, float y) { //co
 	pos = sf::Vector2f(x, y); //setting vector of x and y position
 	sprite.setPosition(pos); //update the sprite's position
 	setUpSprite(textureName); //setting the spire texture
+
+	setHP(20);
+	setAD(5);
 } 
 
 EnemyCharacter::EnemyCharacter(const EnemyCharacter& e1) {

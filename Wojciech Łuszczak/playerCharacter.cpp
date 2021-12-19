@@ -26,7 +26,8 @@ PlayerCharacter::PlayerCharacter(std::string textureName, float x, float y)
     sprite.setPosition(getPos());
     setUpSprite(textureName, &texture, &sprite);
 
-    std::cout << "HP: " << HP << std::endl;
+    setHP(20);
+    setAD(6);
 }
 
 PlayerCharacter::PlayerCharacter(const PlayerCharacter &p1) {

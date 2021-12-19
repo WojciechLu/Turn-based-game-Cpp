@@ -14,8 +14,6 @@ class PlayerCharacter : public Character{
 	sf::Vector2f pos; //possition of the player
 	sf::Sprite orginalSprite;
 	sf::Sprite sprite;	//sprite of the player
-	int HP = 20;
-	int attackDamage = 6;
 	int choiceSkill{};
 
 

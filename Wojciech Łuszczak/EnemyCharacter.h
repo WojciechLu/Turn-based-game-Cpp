@@ -10,8 +10,6 @@
 class EnemyCharacter : public Character{
 	sf::Texture texture; //texture of the player
 	sf::Vector2f pos; //possition of the player
-	int HP = 20;
-	int attackDamage = 5;
 
 public:
 	sf::Sprite sprite;	//sprite of the player
