@@ -11,6 +11,7 @@ class Battle
 {
 	bool playerTurn;
 	short battleResult;
+	int skillChoice;
 
 	short isOnFire = 0;
 	bool isShieldOn = false;
@@ -21,7 +22,6 @@ class Battle
 	sf::Texture textureActionsMenu;	//texture and sprite of the player's option to attack
 	sf::Vector2f posActionsMenu;
 	sf::Sprite spriteActionsMenu;
-	int attackChoice;
 
 	sf::Texture textureAttack;
 	sf::Vector2f posAttack;
@@ -79,11 +79,11 @@ class Battle
 
 
 public:
-	PlayerCharacter *player;
+	PlayerCharacter player;
 	EnemyCharacter *enemy;
 
 	//void chooseAction(char key, PlayerCharacter player, Attack* attack, WindowGame* m_window);
-	void chooseAction(char key, PlayerCharacter player, Attack* attack);
+	void chooseAction(sf::Keyboard::Key key, PlayerCharacter player, Attack* attack);
 	Battle(PlayerCharacter &playerPattern, EnemyCharacter &enemyPattern);
 
 

@@ -11,7 +11,6 @@ class PlayerCharacter : public Character{
 	sf::Texture orginalTexture; //texture of the player
 	int coinsAmount{}; //setting the coinAmount value to 0
 	sf::Sprite orginalSprite;
-	int choiceSkill{};
 
 
 public:
@@ -22,9 +21,6 @@ public:
 	void setCoins(int coins);
 	int getCoins() const;
 
-	void setChoiceSkill(int);
-	int getChoiceSkill() const;
-	
 	//skill set
 
 	//int skill(int);

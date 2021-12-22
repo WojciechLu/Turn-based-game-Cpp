@@ -138,6 +138,7 @@ int main()
     while (mainWindow->window.isOpen())
     {
         mainWindow->drawBattle(*battle1);
+        //player->setChoiceSkill(player->getChoiceSkill()+1);
         mainWindow->battleUpdate(*battle1, *attack);
        //if (states.getIsBattle()) { //render battle
        //     //std::cout << "Battle";

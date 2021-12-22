@@ -77,7 +77,7 @@ void WindowGame::drawBattle(Battle battle)
     textPlayerHP.setFont(font); // font is a sf::Font
     textEnemyHP.setFont(font);
     
-    textPlayerHP.setString(std::to_string(battle.player->getHP())); // set the string to display
+    textPlayerHP.setString(std::to_string(battle.player.getHP())); // set the string to display
     textEnemyHP.setString(std::to_string(battle.enemy->getHP()));
     
     textPlayerHP.setCharacterSize(24); // set the character size
@@ -92,7 +92,7 @@ void WindowGame::drawBattle(Battle battle)
 	this->window.clear(sf::Color(37, 19, 26));
 	this->window.draw(battle.getSpriteBg());
     this->window.draw(battle.getSpriteMenu()); //drawing sprite of actions to choose
-	this->window.draw(battle.player->getSprite());
+	this->window.draw(battle.player.getSprite());
 	this->window.draw(battle.enemy->getSprite());    //drawing enemy on the screen
 	this->window.draw(textPlayerHP);
 	this->window.draw(textEnemyHP);
@@ -130,7 +130,7 @@ void WindowGame::animation(Attack attackAnimation) { //repair in the future
 	attackAnimation.setUpInitial("images/attackAnimation/blank.png", attackAnimation.getSprite().getPosition().x, attackAnimation.getSprite().getPosition().y);
 }
 
-void WindowGame::battleUpdate(Battle battle, Attack attack)
+void WindowGame::battleUpdate(Battle &battle, Attack attack)
 {
     sf::Event event;
     if (battle.getBattleResult() == 1) {
@@ -146,15 +146,16 @@ void WindowGame::battleUpdate(Battle battle, Attack attack)
     else {
         while (this->window.pollEvent(event)) {
             if (event.type == sf::Event::KeyPressed) {
-                if (event.key.code == sf::Keyboard::A) {
-                    battle.chooseAction('A', *battle.player, &attack); //if A, change chosen action to the left
-                }
-                if (event.key.code == sf::Keyboard::D) {
-                    battle.chooseAction('D', *battle.player, &attack); //if D, change chosen action to the right
-                }
-                if (event.key.code == sf::Keyboard::E) {
-                    battle.chooseAction('E', *battle.player, &attack); //if E, do action
-                }
+                battle.chooseAction(event.key.code, battle.player, &attack);
+                //if (event.key.code == sf::Keyboard::A) {
+                //    battle.chooseAction('A', battle.player, &attack); //if A, change chosen action to the left
+                //}
+                //if (event.key.code == sf::Keyboard::D) {
+                //    battle.chooseAction('D', battle.player, &attack); //if D, change chosen action to the right
+                //}
+                //if (event.key.code == sf::Keyboard::E) {
+                //    battle.chooseAction('E', battle.player, &attack); //if E, do action
+                //}
             }
             if (event.key.code == sf::Keyboard::Escape || event.type == sf::Event::Closed) this->window.close(); //if escape, exit game
         }

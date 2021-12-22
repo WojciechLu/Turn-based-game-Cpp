@@ -52,12 +52,6 @@ bool PlayerCharacter::setUpSprite(std::string textureName, sf::Texture* texture,
     return true;
 }
 
-void PlayerCharacter::setChoiceSkill(int a) {
-    this->choiceSkill = a;
-}
-int PlayerCharacter::getChoiceSkill() const {
-    return this->choiceSkill;
-}
 
 void PlayerCharacter::setCoins(int coins) {     //function to add coins to inventory
     this->coinsAmount += coins;
