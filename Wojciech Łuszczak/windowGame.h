@@ -19,6 +19,7 @@ public:
 	void drawBattle(Battle battle);
 
 	void animation(Attack attackAnimation);
+	void battleUpdate(Battle battle, Attack attack);
 };
 
 #endif

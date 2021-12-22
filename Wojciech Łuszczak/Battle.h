@@ -9,8 +9,6 @@
 
 class Battle
 {
-
-
 	bool playerTurn;
 	short battleResult;
 
@@ -23,7 +21,7 @@ class Battle
 	sf::Texture textureActionsMenu;	//texture and sprite of the player's option to attack
 	sf::Vector2f posActionsMenu;
 	sf::Sprite spriteActionsMenu;
-	int attackChoice{};
+	int attackChoice;
 
 	sf::Texture textureAttack;
 	sf::Vector2f posAttack;
@@ -36,6 +34,7 @@ class Battle
 	void playerAttack(int a);
 	void actionsMenu(std::string);
 	void checkWin();
+	void enemyAttack(int a);
 
 
 	//int playerHP{};	//reset the playerHP to 
@@ -52,7 +51,6 @@ class Battle
 	//sf::Texture textureActionsMenu;	//texture and sprite of the player's option to attack
 	//sf::Vector2f posActionsMenu;
 	//sf::Sprite spriteActionsMenu;
-	//int attackChoice{};
 
 	//EnemyCharacter e1;
 	//int enemyHP{};	//reset the enemyHP to zero
@@ -87,6 +85,7 @@ public:
 	//void chooseAction(char key, PlayerCharacter player, Attack* attack, WindowGame* m_window);
 	void chooseAction(char key, PlayerCharacter player, Attack* attack);
 	Battle(PlayerCharacter &playerPattern, EnemyCharacter &enemyPattern);
+
 
 
 	sf::Sprite getSpriteMenu() const;

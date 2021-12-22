@@ -90,8 +90,8 @@ void WindowGame::drawBattle(Battle battle)
     textEnemyHP.setPosition(5.5 * 64, 4 * 64);
 
 	this->window.clear(sf::Color(37, 19, 26));
-    this->window.draw(battle.getSpriteMenu()); //drawing sprite of actions to choose
 	this->window.draw(battle.getSpriteBg());
+    this->window.draw(battle.getSpriteMenu()); //drawing sprite of actions to choose
 	this->window.draw(battle.player->getSprite());
 	this->window.draw(battle.enemy->getSprite());    //drawing enemy on the screen
 	this->window.draw(textPlayerHP);
@@ -128,5 +128,35 @@ void WindowGame::animation(Attack attackAnimation) { //repair in the future
 		this->window.display();
 	}
 	attackAnimation.setUpInitial("images/attackAnimation/blank.png", attackAnimation.getSprite().getPosition().x, attackAnimation.getSprite().getPosition().y);
+}
 
+void WindowGame::battleUpdate(Battle battle, Attack attack)
+{
+    sf::Event event;
+    if (battle.getBattleResult() == 1) {
+        //std::cout << "\nEnemy 0HP\nYou won\n";
+        //states.battle2World();
+        return;
+    }
+    else if (battle.getBattleResult() == -1) {
+        //std::cout << "\nPlayer 0HP\nYou lost\n";
+        //states.battle2World();
+        return;
+    }
+    else {
+        while (this->window.pollEvent(event)) {
+            if (event.type == sf::Event::KeyPressed) {
+                if (event.key.code == sf::Keyboard::A) {
+                    battle.chooseAction('A', *battle.player, &attack); //if A, change chosen action to the left
+                }
+                if (event.key.code == sf::Keyboard::D) {
+                    battle.chooseAction('D', *battle.player, &attack); //if D, change chosen action to the right
+                }
+                if (event.key.code == sf::Keyboard::E) {
+                    battle.chooseAction('E', *battle.player, &attack); //if E, do action
+                }
+            }
+            if (event.key.code == sf::Keyboard::Escape || event.type == sf::Event::Closed) this->window.close(); //if escape, exit game
+        }
+    }
 }

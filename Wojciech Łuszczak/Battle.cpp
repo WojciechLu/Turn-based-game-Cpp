@@ -2,6 +2,7 @@
 #include "playerCharacter.h"
 #include "EnemyCharacter.h"
 #include <iostream>
+#include <math.h>
 
 void Battle::setUpBackground(std::string textureName, sf::IntRect rect) {
     if (!setUpSprite(textureName, rect, this->textureBg, &this->spriteBg)) {
@@ -26,14 +27,15 @@ bool Battle::setUpSprite(std::string textureName, sf::IntRect size, sf::Texture 
 void Battle::playerAttack(int a) {
     if (a > 0) {
         if (a >= this->enemy->getHP()) {
-            std::cout << "DMAGE: " << a << std::endl;
+            std::cout << "Player DMAGE: " << a << std::endl;
             enemy->setHP(0);
-            std::cout << "HP: " << this->enemy->getHP() << std::endl;
+            std::cout << "Enemy HP: " << this->enemy->getHP() << std::endl;
 
         }
         else {
+            std::cout << "Player DMAGE: " << a << std::endl;
             enemy->setHP(this->enemy->getHP() - a);
-            std::cout << "enemy HP: " << this->enemy->getHP() << std::endl;
+            std::cout << "Enemy HP: " << this->enemy->getHP() << std::endl;
         }
     }
     else if (a == -1) {
@@ -42,6 +44,12 @@ void Battle::playerAttack(int a) {
     else if (a == -2) {
         std::cout << "Shield \n";
         this->isShieldOn = true;
+    }
+    else if (a == -3) {
+        this->player->setAD(floor(player->getAD() * 1.8));
+    }
+    else if (a == -4) {
+        this->player->setAD(floor(player->getAD() * 2));
     }
 }
 
@@ -67,16 +75,39 @@ void Battle::checkWin() {
     }
 }
 
+void Battle::enemyAttack(int a)
+{
+    if (a == -1) {
+        std::cout << "Missed \n";
+    }
+    else {
+        if (this->isShieldOn) {
+            this->isShieldOn = false;
+        }
+        else {
+            if (a >= this->player->getHP()) {
+                std::cout << "Enemy DMAGE: " << a << std::endl;
+                player->setHP(0);
+                std::cout << "Player HP: " << this->player->getHP() << std::endl;
+            }
+            else {
+                std::cout << "Enemy DMAGE: " << a << std::endl;
+                player->setHP(this->player->getHP() - a);
+                std::cout << "Player HP: " << this->player->getHP() << std::endl;
+            }
+        }
+    }
+}
 //void Battle::chooseAction(char key, PlayerCharacter player, Attack* attack, WindowGame* m_window); //changing texture sprite to next or previous attack, used in StartGame
 void Battle::chooseAction(char key, PlayerCharacter player, Attack* attack) { //changing texture sprite to next or previous attack, used in StartGame
     if (key == 'A') {
         if (this->attackChoice == 0) {
             this->attackChoice = 3;
-            //player.setChoiceSkill(attackChoice); //setting the number 0-4, depends on the chosen action
+            player.setChoiceSkill(attackChoice); //setting the number 0-4, depends on the chosen action
         }
         else {
             this->attackChoice--;
-            //player.setChoiceSkill(attackChoice);
+            player.setChoiceSkill(attackChoice);
         }
         actionsMenu("images/actionMenu/attackSwordsman/interface.png"); //update the choice of attack
     }
@@ -96,7 +127,20 @@ void Battle::chooseAction(char key, PlayerCharacter player, Attack* attack) { //
         playerAttack(damageDealt);
         //attack->animation(m_window); //making animation based on the above data
         checkWin();
+        if (this->battleResult == 1) {
+            return;
+        }
+        sf::Clock clock;
+        while (1) {
+            if (float time = clock.getElapsedTime() > sf::seconds(0.5f)) {
+                break;
+            }
+        }
+        damageDealt = attack->doAttackEnemy(enemy->getAD(), this->player->getSprite().getPosition());
+        enemyAttack(damageDealt);
+        checkWin();
     }
+    std::cout << "SkillChoice: " << this->attackChoice << std::endl;
 }
 
 Battle::Battle(PlayerCharacter &playerPattern, EnemyCharacter &enemyPattern)
@@ -105,8 +149,11 @@ Battle::Battle(PlayerCharacter &playerPattern, EnemyCharacter &enemyPattern)
 	this->playerTurn = true; 
     this->battleResult = 0;
     actionsMenu("images/actionMenu/attackSwordsman/interface.png");
+    //this->attackChoice = 1;
     sf::IntRect bg(0, 0, 576, 576);
     setUpBackground("images/battle/background.png", bg);
+    this->player->setPos(3 * 64, 3 * 64);
+    this->enemy->setPos(5 * 64, 3 * 64);
 }
 
 
@@ -129,6 +176,7 @@ int Battle::getBattleResult() const
 {
     return this->battleResult;
 }
+
 
 //Battle::Battle(PlayerCharacter player) {  //constructor, get player and enemy informations and setting to battle class
 //    actionsMenu("images/actionMenu/attackSwordsman/interface.png");

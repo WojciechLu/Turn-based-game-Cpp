@@ -24,6 +24,16 @@ int Attack::BlockSkill() {
 	return -2;
 }
 
+int Attack::PowerBuff()
+{
+	srand(time(NULL));
+	int crit = rand() % 5;
+	if (crit == 0) {
+		return -4;
+	}
+	else return -3;
+}
+
 int Attack::BashAttack(int a) {
 	srand(time(NULL));
 	int missed = rand() % 3;
@@ -61,9 +71,11 @@ int Attack::doAttack(int a, int ad, sf::Vector2f pos){ //set postion where shoul
 		break;
 	case 1:
 		std::cout << "You chose block" << std::endl;
+		return BlockSkill();
 		break;
 	case 2:
-		std::cout << "You chose aim" << std::endl;
+		std::cout << "You chose buff" << std::endl;
+		return PowerBuff();
 		break;
 	case 3:
 		std::cout << "You chose bash" << std::endl;
@@ -73,6 +85,25 @@ int Attack::doAttack(int a, int ad, sf::Vector2f pos){ //set postion where shoul
 	}
 	setUpInitial("images/attackAnimation/swordAttack.png", pos.x, pos.y);
 	return -1;
+}
+
+int Attack::doAttackEnemy(int ad, sf::Vector2f pos)
+{
+	srand(time(NULL));
+	int missed = rand() % 5;
+	int crit = 1 + rand() % 100;
+
+	if (missed == 0) {
+		return -1;
+	}
+	else {
+		if (crit > 90) {
+			return 1.5 * ad;
+		}
+		else {
+			return ad;
+		}
+	}
 }
 
 void Attack::setUpInitial(std::string textureName, float x, float y) {

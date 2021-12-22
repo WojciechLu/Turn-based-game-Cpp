@@ -27,7 +27,7 @@ public:
 	
 	//skill set
 
-	int skill(int);
+	//int skill(int);
 	void swordAttack();
 	void block();
 	void aim();

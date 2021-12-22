@@ -100,36 +100,36 @@ void updateInputWorld() {
 }
 
 //update input battle
-/*void updateInputBattle() {
-    sf::Event event;
-    if (battle.getBattleResult() == 1) {
-        std::cout << "\nEnemy 0HP\nYou won\n";
-        states.battle2World();
-        return;
-    }
-    else if (battle.getBattleResult() == -1) {
-        std::cout << "\nPlayer 0HP\nYou lost\n";
-        states.battle2World();
-        return;
-    }
-    else {
-        while (mainWindow->window.pollEvent(event)) {
-            if (event.type == sf::Event::KeyPressed) {
-                if (event.key.code == sf::Keyboard::A) {
-                    battle.chooseAction('A', *player, attack, mainWindow); //if A, change chosen action to the left
-                }
-                if (event.key.code == sf::Keyboard::D) {
-                    battle.chooseAction('D', *player, attack, mainWindow); //if D, change chosen action to the right
-                }
-                if (event.key.code == sf::Keyboard::E) {
-                    battle.chooseAction('E', *player, attack, mainWindow); //if E, do action
-                }
-            }
-            if (event.key.code == sf::Keyboard::Escape || event.type == sf::Event::Closed) mainWindow->window.close(); //if escape, exit game
-        }
-    }
-}
-*/
+//void updateInputBattle() {
+//    sf::Event event;
+//    if (battle.getBattleResult() == 1) {
+//        std::cout << "\nEnemy 0HP\nYou won\n";
+//        states.battle2World();
+//        return;
+//    }
+//    else if (battle.getBattleResult() == -1) {
+//        std::cout << "\nPlayer 0HP\nYou lost\n";
+//        states.battle2World();
+//        return;
+//    }
+//    else {
+//        while (mainWindow->window.pollEvent(event)) {
+//            if (event.type == sf::Event::KeyPressed) {
+//                if (event.key.code == sf::Keyboard::A) {
+//                    battle.chooseAction('A', *player, attack, mainWindow); //if A, change chosen action to the left
+//                }
+//                if (event.key.code == sf::Keyboard::D) {
+//                    battle.chooseAction('D', *player, attack, mainWindow); //if D, change chosen action to the right
+//                }
+//                if (event.key.code == sf::Keyboard::E) {
+//                    battle.chooseAction('E', *player, attack, mainWindow); //if E, do action
+//                }
+//            }
+//            if (event.key.code == sf::Keyboard::Escape || event.type == sf::Event::Closed) mainWindow->window.close(); //if escape, exit game
+//        }
+//    }
+//}
+
 int main()
 {
     Battle* battle1 = new Battle(*player, *enemy1);
@@ -138,6 +138,7 @@ int main()
     while (mainWindow->window.isOpen())
     {
         mainWindow->drawBattle(*battle1);
+        mainWindow->battleUpdate(*battle1, *attack);
        //if (states.getIsBattle()) { //render battle
        //     //std::cout << "Battle";
        //     //updateInputWorld();
