@@ -17,7 +17,7 @@ protected:
 public:
 	//bool setUpSprite(std::string);	//set texture to sprite
 	sf::Vector2f getPos();
-	void setPos(int, int);
+	void setPos(int x, int y);
 	//float getPosY();
 	//void setPosY(int);
 	int getHP();
@@ -28,6 +28,7 @@ public:
 	void setTexture(sf::Texture);
 	sf::Sprite getSprite();
 	void setSprite(sf::Sprite);
+	void setSpritePos(sf::Sprite sprite, int x, int y);
 
 	bool setUpSprite(std::string textureName);
 

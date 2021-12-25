@@ -52,6 +52,11 @@ void Character::setTexture(sf::Texture newTexture) {
 void Character::setSprite(sf::Sprite newSprite) {
 	this->sprite = newSprite;
 }
+void Character::setSpritePos(sf::Sprite newSprite, int x, int y)
+{
+	this->setSprite(newSprite);
+	this->setPos(x, y);
+}
 sf::Sprite Character::getSprite() {
 	return this->sprite;
 }

@@ -146,9 +146,9 @@ Battle::Battle(PlayerCharacter &playerPattern, EnemyCharacter &enemyPattern)
     actionsMenu("images/actionMenu/attackSwordsman/interface.png");
     sf::IntRect bg(0, 0, 576, 576);
     setUpBackground("images/battle/background.png", bg);
-    this->player.setPos(3 * 64, 3 * 64);
+    //this->player.setPos(3 * 64, 3 * 64);
     this->enemy->setPos(5 * 64, 3 * 64);
-    std::cout << "X: " << player.getPos().x << " Y: " << player.getPos().y << std::endl;
+    this->player.setSpritePos(player.getOrginalSprite(), 192, 192);
 }
 
 
