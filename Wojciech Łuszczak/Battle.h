@@ -34,7 +34,7 @@ class Battle
 	void playerAttack(int a);
 	void actionsMenu(std::string);
 	void checkWin();
-	void enemyAttack(int a);
+	
 
 
 	//int playerHP{};	//reset the playerHP to 
@@ -92,7 +92,10 @@ public:
 	sf::Sprite getSpriteAttack() const;
 	sf::Sprite getSpriteBg() const;
 
+	void enemyAttack(Attack* attack);
 	int getBattleResult() const;
+	bool isPlayerTurn() const;
+	void setPlayerTurn(bool a);
 	
 
 	//void chooseAction(char, PlayerCharacter, Attack*, WindowGame*); //changing texture sprite to next or previous attack, used in StartGame

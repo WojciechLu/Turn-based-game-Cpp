@@ -32,14 +32,3 @@ bool EnemyCharacter::setUpSprite(std::string textureName) { //set texture to spr
 
 	return true;
 }	
-
-
-
-bool EnemyCharacter::isPlayerOn(PlayerCharacter* player, StateMachine* state) { // get pos x, y, get pointer to obj of class player to give coins to inventory
-	//if(pos.x == player->getPos().x && pos.y == player->getPos().y){
-	if (pos == player->getPos()) {
-		state->world2Battle();
-		return true;
-	}
-	return false;
-}

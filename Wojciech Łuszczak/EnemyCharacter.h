@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "playerCharacter.h"
+//#include "playerCharacter.h"
 #include "Character.h"
 #include "StateMachine.h"
 
@@ -18,7 +18,6 @@ public:
 	//void setHP(int);
 
 
-	bool isPlayerOn(PlayerCharacter*, StateMachine*); //if player is on enemy, then set statemachine on battle
 };
 
 #endif

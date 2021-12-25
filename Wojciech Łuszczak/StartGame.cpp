@@ -21,52 +21,17 @@ EnemyCharacter* enemy1 = new EnemyCharacter("images/enemyWarrior64.png", 256, 19
 Coins coinsInGame;
 Attack* attack = new Attack();
 
-
-//void drawBattle() {
-//    sf::Font font;
-//    if (!font.loadFromFile("arial.ttf")) {
-//        return;
-//    }    
-//    std::vector<sf::Text> textHP;
-//    sf::Text textEnemyHP;
-//    sf::Text textPlayerHP;
-//
-//    textPlayerHP.setFont(font); // font is a sf::Font
-//    textEnemyHP.setFont(font);
-//    
-//    textPlayerHP.setString(std::to_string(battle1->player->getHP())); // set the string to display
-//    textEnemyHP.setString(std::to_string(battle1->enemy.getHP()));
-//    
-//    textPlayerHP.setCharacterSize(24); // set the character size
-//    textEnemyHP.setCharacterSize(24);
-//    
-//    textPlayerHP.setFillColor(sf::Color::Red); // set the color
-//    textEnemyHP.setFillColor(sf::Color::Red);
-//
-//    textPlayerHP.setPosition(3.5 * 64, 4 * 64);
-//    textEnemyHP.setPosition(5.5 * 64, 4 * 64);
-//
-//
-//    mainWindow->window.clear(sf::Color(37, 19, 26));
-//    mainWindow->window.draw(battle1->getSpriteBg());
-//    mainWindow->window.draw(battle1->getSpriteMenu()); //drawing sprite of actions to choose
-//    mainWindow->window.draw(battle1->player->getSprite());   //drawing player on the screen
-//    mainWindow->window.draw(battle1->enemy.getSprite());    //drawing enemy on the screen
-//    mainWindow->window.draw(textEnemyHP);
-//    mainWindow->window.draw(textPlayerHP);
-//    mainWindow->window.display();
-//}
-
 //update input 2d map
 void updateInputWorld() {
     sf::Event event;
 
     //if(player->getPosX == )
-    if (enemy1->isPlayerOn(player, &states)) {
-        std::cout << "You stepped on sth" << std::endl;
-        std::cout << "Coins: " << player->getCoins() << std::endl;
-    }
+    //if (enemy1->isPlayerOn(*player, &states)) {
+    //    std::cout << "You stepped on sth" << std::endl;
+    //    std::cout << "Coins: " << player->getCoins() << std::endl;
+    //}
     
+    player->isPlayerOnEnemy(*enemy1, &states);
     while (mainWindow->window.pollEvent(event)) {
         //Checking the key and moving the player
         if (event.type == sf::Event::KeyPressed) {
@@ -99,37 +64,6 @@ void updateInputWorld() {
     }
 }
 
-//update input battle
-//void updateInputBattle() {
-//    sf::Event event;
-//    if (battle.getBattleResult() == 1) {
-//        std::cout << "\nEnemy 0HP\nYou won\n";
-//        states.battle2World();
-//        return;
-//    }
-//    else if (battle.getBattleResult() == -1) {
-//        std::cout << "\nPlayer 0HP\nYou lost\n";
-//        states.battle2World();
-//        return;
-//    }
-//    else {
-//        while (mainWindow->window.pollEvent(event)) {
-//            if (event.type == sf::Event::KeyPressed) {
-//                if (event.key.code == sf::Keyboard::A) {
-//                    battle.chooseAction('A', *player, attack, mainWindow); //if A, change chosen action to the left
-//                }
-//                if (event.key.code == sf::Keyboard::D) {
-//                    battle.chooseAction('D', *player, attack, mainWindow); //if D, change chosen action to the right
-//                }
-//                if (event.key.code == sf::Keyboard::E) {
-//                    battle.chooseAction('E', *player, attack, mainWindow); //if E, do action
-//                }
-//            }
-//            if (event.key.code == sf::Keyboard::Escape || event.type == sf::Event::Closed) mainWindow->window.close(); //if escape, exit game
-//        }
-//    }
-//}
-
 int main()
 {
     Battle* battle1 = new Battle(*player, *enemy1);
@@ -137,23 +71,18 @@ int main()
     mainWindow->window.setFramerateLimit(20);
     while (mainWindow->window.isOpen())
     {
-        mainWindow->drawBattle(*battle1);
-        //player->setChoiceSkill(player->getChoiceSkill()+1);
-        mainWindow->battleUpdate(*battle1, *attack);
-       //if (states.getIsBattle()) { //render battle
-       //     //std::cout << "Battle";
-       //     //updateInputWorld();
-       //     //battle(*player, *enemy1);
-       //     //updateInputBattle();
-       //     
-       // }
-       // 
-       // else if (states.getIsWorld()) { //render 2d world
-       //     updateInputWorld();
-       //     //draw2dWorld();
-       //     mainWindow->draw2dWorld(gameWorld, player, *enemy1, coinsInGame);
-       // }
-    }
 
+       if (states.getIsBattle()) { //render battle
+           mainWindow->drawBattle(*battle1);
+           mainWindow->battleUpdate(*battle1, *attack, states);
+        }
+        
+        else if (states.getIsWorld()) { //render 2d world
+            //mainWindow->updateInputWorld(player, enemy1, gameWorld, states, coinsInGame);
+            updateInputWorld();
+            //draw2dWorld();
+            mainWindow->draw2dWorld(gameWorld, *player, *enemy1, coinsInGame);
+        }
+    }
     return 0;
 }

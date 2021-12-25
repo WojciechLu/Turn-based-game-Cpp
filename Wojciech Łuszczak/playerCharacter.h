@@ -1,6 +1,8 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Character.h"
+#include "StateMachine.h"
+#include "EnemyCharacter.h"
 
 #ifndef GAMEPLAYER_H
 #define GAMEPLAYER_H
@@ -30,6 +32,7 @@ public:
 	void bash();
 	
 	void Move(std::string); //check if key pressed, get key pressed, set possition
+	bool isPlayerOnEnemy(EnemyCharacter enemy, StateMachine* state);
 
 
 	//void SpendCoins(int); //function to lose coins by buying

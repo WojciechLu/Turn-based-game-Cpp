@@ -75,28 +75,37 @@ void Battle::checkWin() {
     }
 }
 
-void Battle::enemyAttack(int a)
+void Battle::enemyAttack(Attack* attack)
 {
-    if (a == -1) {
+    sf::Clock clock;
+    while (1) {
+        if (float time = clock.getElapsedTime() > sf::seconds(0.5f)) {
+            break;
+        }
+    }
+    int damageDealt = attack->doAttackEnemy(enemy->getAD(), this->player.getSprite().getPosition());
+    if (damageDealt == -1) {
         std::cout << "Missed \n";
     }
     else {
         if (this->isShieldOn) {
+            std::cout << "Shield delete" << std::endl;
             this->isShieldOn = false;
         }
         else {
-            if (a >= this->player.getHP()) {
-                std::cout << "Enemy DMAGE: " << a << std::endl;
+            if (damageDealt >= this->player.getHP()) {
+                std::cout << "Enemy DMAGE: " << damageDealt << std::endl;
                 this->player.setHP(0);
                 std::cout << "Player HP: " << this->player.getHP() << std::endl;
             }
             else {
-                std::cout << "Enemy DMAGE: " << a << std::endl;
-                this->player.setHP(this->player.getHP() - a);
+                std::cout << "Enemy DMAGE: " << damageDealt << std::endl;
+                this->player.setHP(this->player.getHP() - damageDealt);
                 std::cout << "Player HP: " << this->player.getHP() << std::endl;
             }
         }
     }
+    checkWin();
 }
 void Battle::chooseAction(sf::Keyboard::Key key, PlayerCharacter p, Attack* attack) {
     if (key == sf::Keyboard::A) {
@@ -123,62 +132,10 @@ void Battle::chooseAction(sf::Keyboard::Key key, PlayerCharacter p, Attack* atta
         if (this->battleResult == 1) {
             return;
         }
-        sf::Clock clock;
-        while (1) {
-            if (float time = clock.getElapsedTime() > sf::seconds(0.5f)) {
-                break;
-            }
-        }
-        damageDealt = attack->doAttackEnemy(enemy->getAD(), this->player.getSprite().getPosition());
-        enemyAttack(damageDealt);
-        checkWin();
+        setPlayerTurn(false);
     }
     actionsMenu("images/actionMenu/attackSwordsman/interface.png");
 }
-//void Battle::chooseAction(char key, PlayerCharacter player, Attack* attack, WindowGame* m_window); //changing texture sprite to next or previous attack, used in StartGame
-//void Battle::chooseAction(char key, PlayerCharacter player, Attack* attack) { //changing texture sprite to next or previous attack, used in StartGame
-//    std::cout << "Curretn get:\t";
-//    int currentChoiceSkill = player.getChoiceSkill();
-//    if (key == 'A') {
-//        if (currentChoiceSkill == 0) {
-//            player.setChoiceSkill(3); //setting the number 0-4, depends on the chosen action
-//        }
-//        else {
-//            player.setChoiceSkill(currentChoiceSkill--);
-//        }
-//        actionsMenu("images/actionMenu/attackSwordsman/interface.png"); //update the choice of attack
-//    }
-//    else if (key == 'D') {
-//        if (currentChoiceSkill == 3) {
-//            player.setChoiceSkill(0);
-//            //player.setChoiceSkill(attackChoice);
-//        }
-//        else {
-//            player.setChoiceSkill(currentChoiceSkill++);
-//            //player.setChoiceSkill(attackChoice);
-//        }
-//        actionsMenu("images/actionMenu/attackSwordsman/interface.png"); //update the choice of attack
-//    }
-//    else if (key == 'E') {
-//        int damageDealt = attack->doAttack(currentChoiceSkill, player.getAD(), this->enemy->getSprite().getPosition()); //giving the number of chosen attack and posiotion to (chosen) enemy then recive damage dealt
-//        playerAttack(damageDealt);
-//        //attack->animation(m_window); //making animation based on the above data
-//        checkWin();
-//        if (this->battleResult == 1) {
-//            return;
-//        }
-//        sf::Clock clock;
-//        while (1) {
-//            if (float time = clock.getElapsedTime() > sf::seconds(0.5f)) {
-//                break;
-//            }
-//        }
-//        damageDealt = attack->doAttackEnemy(enemy->getAD(), this->player.getSprite().getPosition());
-//        enemyAttack(damageDealt);
-//        checkWin();
-//    }
-//    std::cout << "SkillChoice: " << player.getChoiceSkill() << std::endl;
-//}
 
 Battle::Battle(PlayerCharacter &playerPattern, EnemyCharacter &enemyPattern)
 	:player(playerPattern), enemy(&enemyPattern){ //wywo³anie konstruktorów kopiuj¹cych dla pól prywatnych klasy bitwy: PlayerCharacter player, EnemyCharacter enemy
@@ -212,5 +169,15 @@ sf::Sprite Battle::getSpriteBg() const
 int Battle::getBattleResult() const
 {
     return this->battleResult;
+}
+
+bool Battle::isPlayerTurn() const
+{
+    return this->playerTurn;
+}
+
+void Battle::setPlayerTurn(bool a)
+{
+    this->playerTurn = a;
 }
 
