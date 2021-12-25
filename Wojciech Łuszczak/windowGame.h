@@ -19,8 +19,8 @@ public:
 	void drawBattle(Battle battle);
 
 	void animation(Attack attackAnimation);
-	void updateInputWorld(PlayerCharacter* player, EnemyCharacter *enemy1, GameWorld gameWorld, StateMachine states, Coins &coinsInGame);
-	void battleUpdate(Battle &battle, Attack attack, StateMachine states);
+	void updateInputWorld(PlayerCharacter* player, EnemyCharacter *enemy1, GameWorld gameWorld, StateMachine &states, Coins &coinsInGame);
+	void battleUpdate(Battle &battle, Attack attack, StateMachine &states);
 };
 
 #endif

@@ -28,13 +28,14 @@ void WindowGame::draw2dWorld(GameWorld gameWorld, PlayerCharacter player, EnemyC
     this->window.display(); //display all the sprites on the window
 }
 
-void WindowGame::updateInputWorld(PlayerCharacter* player, EnemyCharacter *enemy1, GameWorld gameWorld, StateMachine states, Coins &coinsInGame) {
+void WindowGame::updateInputWorld(PlayerCharacter* player, EnemyCharacter *enemy1, GameWorld gameWorld, StateMachine &states, Coins &coinsInGame) {
     sf::Event event;
 
     //if (enemy1->isPlayerOn(*player, &states)) {
     //    std::cout << "You stepped on sth" << std::endl;
     //    std::cout << "Coins: " << player->getCoins() << std::endl;
     //}
+    player->isPlayerOnEnemy(*enemy1, &states);
     while (window.pollEvent(event)) {
         //Checking the key and moving the player
         if (event.type == sf::Event::KeyPressed) {
@@ -132,7 +133,7 @@ void WindowGame::animation(Attack attackAnimation) { //repair in the future
 	attackAnimation.setUpInitial("images/attackAnimation/blank.png", attackAnimation.getSprite().getPosition().x, attackAnimation.getSprite().getPosition().y);
 }
 
-void WindowGame::battleUpdate(Battle &battle, Attack attack, StateMachine states)
+void WindowGame::battleUpdate(Battle &battle, Attack attack, StateMachine &states)
 {
     sf::Event event;
     if (battle.getBattleResult() == 1) {

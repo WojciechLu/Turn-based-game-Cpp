@@ -79,7 +79,7 @@ int main()
         
         else if (states.getIsWorld()) { //render 2d world
             //mainWindow->updateInputWorld(player, enemy1, gameWorld, states, coinsInGame);
-            updateInputWorld();
+            mainWindow->updateInputWorld(player, enemy1, gameWorld, states, coinsInGame);
             //draw2dWorld();
             mainWindow->draw2dWorld(gameWorld, *player, *enemy1, coinsInGame);
         }
