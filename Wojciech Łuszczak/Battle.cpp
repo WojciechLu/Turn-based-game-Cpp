@@ -148,7 +148,9 @@ Battle::Battle(PlayerCharacter &playerPattern, EnemyCharacter &enemyPattern)
     setUpBackground("images/battle/background.png", bg);
     this->player.setPos(3 * 64, 3 * 64);
     this->enemy->setPos(5 * 64, 3 * 64);
+    std::cout << "X: " << player.getPos().x << " Y: " << player.getPos().y << std::endl;
 }
+
 
 
 sf::Sprite Battle::getSpriteMenu() const

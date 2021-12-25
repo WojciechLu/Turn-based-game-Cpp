@@ -23,6 +23,7 @@ public:
 	void setCoins(int coins);
 	int getCoins() const;
 
+
 	//skill set
 
 	//int skill(int);
@@ -34,7 +35,7 @@ public:
 	void Move(std::string); //check if key pressed, get key pressed, set possition
 	bool isPlayerOnEnemy(EnemyCharacter enemy, StateMachine* state);
 
-
+	sf::Sprite getOrginalSprite();
 	//void SpendCoins(int); //function to lose coins by buying
 
 };

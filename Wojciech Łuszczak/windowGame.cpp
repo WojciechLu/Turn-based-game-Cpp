@@ -95,7 +95,11 @@ void WindowGame::drawBattle(Battle battle)
 	this->window.clear(sf::Color(37, 19, 26));
 	this->window.draw(battle.getSpriteBg());
     this->window.draw(battle.getSpriteMenu()); //drawing sprite of actions to choose
-	this->window.draw(battle.player.getSprite());
+    this->orginalSprite.setPosition(getPos()); //update the sprite's position
+    battle.player.setSprite(battle.player.getOrginalSprite());
+    battle.player.set
+
+	this->window.draw(battle.player.getOrginalSprite());
 	this->window.draw(battle.enemy->getSprite());    //drawing enemy on the screen
 	this->window.draw(textPlayerHP);
 	this->window.draw(textEnemyHP);

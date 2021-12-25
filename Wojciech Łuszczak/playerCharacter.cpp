@@ -20,10 +20,10 @@ PlayerCharacter::PlayerCharacter(std::string textureName, float x, float y)
         return;
     }
     setPos(x, y);
-    orginalSprite.setPosition(getPos()); //update the sprite's position
+    this->orginalSprite.setPosition(getPos()); //update the sprite's position
     setUpSprite(textureName, &orginalTexture, &orginalSprite); //setting the spire texture
 
-    sprite.setPosition(getPos());
+    this->sprite.setPosition(getPos());
     setUpSprite(textureName, &texture, &sprite);
 
     setHP(20);
@@ -31,14 +31,15 @@ PlayerCharacter::PlayerCharacter(std::string textureName, float x, float y)
 }
 
 PlayerCharacter::PlayerCharacter(const PlayerCharacter &p1) {
-    this->orginalTexture = p1.texture;
-    this->texture = this->orginalTexture;
-    this->setPos(p1.pos.x, p1.pos.y);
-    setSprite(p1.sprite);
-    this->orginalSprite = sprite;
-    setHP(p1.HP);
-    setAD(p1.attackDamage);
+    this->orginalTexture = p1.orginalTexture;
+    this->texture = p1.texture;
+    this->pos = p1.pos;
+    this->orginalSprite = p1.orginalSprite;
+    this->sprite = p1.sprite;
+    this->HP = p1.HP;
+    this->attackDamage = p1.attackDamage;
 }
+
 
 bool PlayerCharacter::setUpSprite(std::string textureName, sf::Texture* texture, sf::Sprite* sprite) { //load texture and set texture and textureRect
     if (!texture->loadFromFile(textureName)) {
@@ -68,29 +69,29 @@ void PlayerCharacter::Move(std::string pressedKey) {
         setPos(x + 64, y);
         //pos = sf::Vector2f(pos.x + 64, pos.y); //moving player to right
         this->setUpSprite("images/character64.png", &texture, &sprite);
-        sprite.setPosition(getPos());
+        this->sprite.setPosition(getPos());
         setSprite(this->sprite);
     }
     else if (pressedKey == "A")
     {
         setPos(x -+ 64, y);
         //pos = sf::Vector2f(pos.x - 64, pos.y); //moving player to left
-        this->setUpSprite("images/character64left.png", &texture, &sprite);
-        sprite.setPosition(getPos());
+        setUpSprite("images/character64left.png", &texture, &sprite);
+        this->sprite.setPosition(getPos());
         setSprite(this->sprite);
     }
     else if (pressedKey == "W")
     {
         setPos(x, y - 64);
         //pos = sf::Vector2f(pos.x, pos.y - 64); //moving player to up
-        sprite.setPosition(getPos());
+        this->sprite.setPosition(getPos());
         setSprite(this->sprite);
     }
     else if (pressedKey == "S")
     {
         setPos(x, y + 64);
         //pos = sf::Vector2f(pos.x, pos.y + 64); //moving player to down
-        sprite.setPosition(getPos());
+        this->sprite.setPosition(getPos());
         setSprite(this->sprite);
     }
 }
@@ -103,7 +104,12 @@ bool PlayerCharacter::isPlayerOnEnemy(EnemyCharacter enemy, StateMachine* state)
         return true;                    //returning true because player is on enemy
     }
     else return false;                  //returning false because player isnt on enemy
-}  
+}
+
+sf::Sprite PlayerCharacter::getOrginalSprite()
+{
+    return this->orginalSprite;
+}
 
 //int PlayerCharacter::skill(int a) {
 //    switch (a) {
