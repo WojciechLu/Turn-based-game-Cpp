@@ -68,6 +68,7 @@ void Battle::checkWin() {
     if (this->enemy->getHP() == 0) {
         this->battleResult = 1;   //player won
         std::cout << this->battleResult << std::endl;
+        
     }
     else if (this->player.getHP() == 0) {
         this->battleResult = -1;  //enemy won
@@ -138,7 +139,8 @@ void Battle::chooseAction(sf::Keyboard::Key key, PlayerCharacter p, Attack* atta
 }
 
 Battle::Battle(PlayerCharacter &playerPattern, EnemyCharacter &enemyPattern)
-	:player(playerPattern), enemy(&enemyPattern){ //wywo³anie konstruktorów kopiuj¹cych dla pól prywatnych klasy bitwy: PlayerCharacter player, EnemyCharacter enemy
+	:player(playerPattern){
+    //, enemy(&enemyPattern){ //wywo³anie konstruktorów kopiuj¹cych dla pól prywatnych klasy bitwy: PlayerCharacter player, EnemyCharacter enemy
 
     this->skillChoice = 0;
 	this->playerTurn = true; 
@@ -147,7 +149,8 @@ Battle::Battle(PlayerCharacter &playerPattern, EnemyCharacter &enemyPattern)
     sf::IntRect bg(0, 0, 576, 576);
     setUpBackground("images/battle/background.png", bg);
     //this->player.setPos(3 * 64, 3 * 64);
-    this->enemy->setPos(5 * 64, 3 * 64);
+    //this->enemy = new EnemyCharacter(enemyPattern);
+    //this->enemy->setPos(5 * 64, 3 * 64);
     this->player.setSpritePos(player.getOrginalSprite(), 192, 192);
 }
 

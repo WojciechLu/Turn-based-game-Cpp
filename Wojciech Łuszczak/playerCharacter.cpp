@@ -96,15 +96,15 @@ void PlayerCharacter::Move(std::string pressedKey) {
     }
 }
 
-bool PlayerCharacter::isPlayerOnEnemy(EnemyCharacter enemy, StateMachine* state)
-{
-    if (this->pos == enemy.getPos()) {  //checking if player is on any enemy
-        std::cout << "Stepped on sth";
-        state->world2Battle();          //turning state to battle
-        return true;                    //returning true because player is on enemy
-    }
-    else return false;                  //returning false because player isnt on enemy
-}
+//bool PlayerCharacter::isPlayerOnEnemy(EnemyCharacter enemy, StateMachine* state)
+//{
+//    if (this->pos == enemy.getPos()) {  //checking if player is on any enemy
+//        std::cout << "Stepped on sth";
+//        state->world2Battle();          //turning state to battle
+//        return true;                    //returning true because player is on enemy
+//    }
+//    else return false;                  //returning false because player isnt on enemy
+//}
 
 sf::Sprite PlayerCharacter::getOrginalSprite()
 {

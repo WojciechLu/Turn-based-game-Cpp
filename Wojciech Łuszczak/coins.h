@@ -8,13 +8,10 @@
 
 class Coins
 {
-	sf::Vector2f pos;
-	sf::Texture texture; //texture of coins
 	int numberOfCoinsOnMap; //how many coins are on the map
 	void setUpTiles();
 public:
 	std::vector<GameTile*> tiles;
-	sf::Sprite sprite;	//sprite of coins
 	
 	Coins();
 	int getNumberOfCoins(); //return the number of coins on the map
