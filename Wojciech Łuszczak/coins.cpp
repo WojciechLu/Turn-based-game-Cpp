@@ -24,8 +24,8 @@ void Coins::setNumberOfCoins(int a) {
 
 void Coins::isPlayerOn(PlayerCharacter *player) { // get pos x, y, get pointer to obj of class player to give coins to inventory
     for (int i = 0; i < numberOfCoinsOnMap; i++){
-        int x = player->getPos().x;
-        int y = player->getPos().y;
+        float x = player->getPos().x;
+        float y = player->getPos().y;
         if (tiles[i]->pos.x == x && tiles[i]->pos.y == y) { //for each coin in vector tiles, checking if player is on this coin
             tiles[i] = NULL;
             tiles.erase(tiles.begin() + i); //deleting the coin from vector

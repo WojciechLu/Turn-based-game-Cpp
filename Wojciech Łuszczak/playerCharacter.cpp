@@ -62,8 +62,8 @@ int PlayerCharacter::getCoins() const {
 }
 
 void PlayerCharacter::Move(std::string pressedKey) {
-    int x = getPos().x;
-    int y = getPos().y;
+    float x = getPos().x;
+    float y = getPos().y;
     if (pressedKey == "D")
     {
         setPos(x + 64, y);

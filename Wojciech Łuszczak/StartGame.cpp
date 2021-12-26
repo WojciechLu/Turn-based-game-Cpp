@@ -26,9 +26,9 @@ std::vector<Battle*> battlesInGame;
 
 int main()
 {
-    for (int i = 0; i < enemiesInGame.getNumberOfEnemies(); i++) { //draw all enemies
-        battlesInGame.push_back(new Battle(player, enemiesInGame.tiles[i]->sprite));
-    }
+    //for (int i = 0; i < enemiesInGame.getNumberOfEnemies(); i++) { //draw all enemies
+    //    battlesInGame.push_back(new Battle(player, enemiesInGame.tiles[i]->sprite));
+    //}
     mainWindow->window.setFramerateLimit(20);
     while (mainWindow->window.isOpen())
     {

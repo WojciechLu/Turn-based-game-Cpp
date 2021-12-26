@@ -138,7 +138,7 @@ void Battle::chooseAction(sf::Keyboard::Key key, PlayerCharacter p, Attack* atta
     actionsMenu("images/actionMenu/attackSwordsman/interface.png");
 }
 
-Battle::Battle(PlayerCharacter &playerPattern, EnemyCharacter &enemyPattern)
+Battle::Battle(PlayerCharacter &playerPattern, Character &enemyPattern)
 	:player(playerPattern){
     //, enemy(&enemyPattern){ //wywo³anie konstruktorów kopiuj¹cych dla pól prywatnych klasy bitwy: PlayerCharacter player, EnemyCharacter enemy
 

@@ -4,7 +4,7 @@ sf::Vector2f Character::getPos() {
 	return this->pos;
 }
 
-void Character::setPos(int x, int y) {
+void Character::setPos(float x, float y) {
 	this->pos = sf::Vector2f(x, y); //setting vector of x and y position
 	this->sprite.setPosition(pos);
 }
