@@ -1,19 +1,6 @@
 #include "playerCharacter.h"
 #include <iostream>
 
-
-
-//bool PlayerCharacter::setUpSprite(std::string textureName) {
-//    if (!this->texture.loadFromFile(textureName)) {
-//        return false;
-//    }
-//
-//    this->texture.setSmooth(true); // antialysing
-//    this->sprite.setTexture(this->texture);
-//    this->sprite.
-//}
-
-
 PlayerCharacter::PlayerCharacter(std::string textureName, float x, float y)
 {
     if (!setUpSprite(textureName, &orginalTexture, &orginalSprite)) {
@@ -96,51 +83,7 @@ void PlayerCharacter::Move(std::string pressedKey) {
     }
 }
 
-//bool PlayerCharacter::isPlayerOnEnemy(EnemyCharacter enemy, StateMachine* state)
-//{
-//    if (this->pos == enemy.getPos()) {  //checking if player is on any enemy
-//        std::cout << "Stepped on sth";
-//        state->world2Battle();          //turning state to battle
-//        return true;                    //returning true because player is on enemy
-//    }
-//    else return false;                  //returning false because player isnt on enemy
-//}
-
 sf::Sprite PlayerCharacter::getOrginalSprite()
 {
     return this->orginalSprite;
 }
-
-//int PlayerCharacter::skill(int a) {
-//    switch (a) {
-//    case 0:
-//        return 0;
-//        break;
-//    case 1:
-//        return 1;
-//        break;
-//    case 2:
-//        return 2;
-//        break;
-//    case 3:
-//        return 3;
-//        break;
-//    default:
-//        return -1;
-//    }
-//}
-//void PlayerCharacter::swordAttack() {
-//    std::cout << "You chose sword attack" << std::endl;
-//}
-//
-//void PlayerCharacter::block() {
-//    std::cout << "You chose block" << std::endl;
-//
-//}
-//void PlayerCharacter::aim() {
-//    std::cout << "You chose aim" << std::endl;
-//
-//}
-//void PlayerCharacter::bash() {
-//    std::cout << "You chose bash" << std::endl;
-//}

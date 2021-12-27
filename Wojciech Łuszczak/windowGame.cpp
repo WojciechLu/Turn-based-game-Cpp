@@ -31,16 +31,14 @@ void WindowGame::draw2dWorld(GameWorld gameWorld, PlayerCharacter player, EnemyC
     this->window.display(); //display all the sprites on the window
 }
 
-void WindowGame::updateInputWorld(PlayerCharacter* player, EnemyCharacter &enemiesInGame, GameWorld gameWorld, StateMachine &states, Coins &coinsInGame) {
+void WindowGame::updateInputWorld(PlayerCharacter* player, EnemyCharacter &enemiesInGame, GameWorld gameWorld, StateMachine &states, Coins &coinsInGame, std::vector<Battle*> battlesInGame) {
     sf::Event event;
 
-    //if (enemy1->isPlayerOn(*player, &states)) {
-    //    std::cout << "You stepped on sth" << std::endl;
-    //    std::cout << "Coins: " << player->getCoins() << std::endl;
-    //}
-    //player->isPlayerOnEnemy(*enemy1, &states);
-    if (enemiesInGame.isPlayerOn(player)) {
+    int which = enemiesInGame.isPlayerOn(player, &states);
+    if (which != -1) {
+        battlesInGame[which]->isCurrent = true;
     }
+
     while (window.pollEvent(event)) {
         //Checking the key and moving the player
         if (event.type == sf::Event::KeyPressed) {
@@ -67,7 +65,6 @@ void WindowGame::updateInputWorld(PlayerCharacter* player, EnemyCharacter &enemi
 
         }
         coinsInGame.isPlayerOn(player);
-        //enemiesInGame.isPlayerOn(player);
         if (event.key.code == sf::Keyboard::Escape || event.type == sf::Event::Closed) this->window.close(); //if Escape do quit game
 
     }
@@ -79,7 +76,6 @@ void WindowGame::drawBattle(Battle battle)
     if (!font.loadFromFile("arial.ttf")) {
         return;
     }    
-    std::vector<sf::Text> textHP;
     sf::Text textEnemyHP;
     sf::Text textPlayerHP;
 
@@ -100,8 +96,21 @@ void WindowGame::drawBattle(Battle battle)
 
 	this->window.clear(sf::Color(37, 19, 26));
 	this->window.draw(battle.getSpriteBg());
-    this->window.draw(battle.getSpriteMenu()); //drawing sprite of actions to choose
 
+
+    this->window.draw(battle.getSpriteMenu()); //drawing sprite of actions to choose
+    if (battle.isShieldOn > 0) {
+        this->window.draw(battle.getSpriteIconShield());
+        sf::Text shield = DrawNumber(battle.isShieldOn, 2.5 * 64 + 32, 2.5 * 64);
+        shield.setFont(font);
+        this->window.draw(shield);
+    }
+    if (battle.isBuffOn > 0) {
+        this->window.draw(battle.getSpriteIconBuff());
+        sf::Text buff = DrawNumber(battle.isBuffOn, 2.5 * 64, 2.5 * 64);
+        buff.setFont(font);
+        this->window.draw(buff);
+    }
 	this->window.draw(battle.player.getSprite());
 	this->window.draw(battle.enemy->getSprite());    //drawing enemy on the screen
 	this->window.draw(textPlayerHP);
@@ -145,7 +154,7 @@ void WindowGame::battleUpdate(Battle &battle, Attack attack, StateMachine &state
     sf::Event event;
     if (battle.getBattleResult() == 1) {
         std::cout << "\nEnemy 0HP\nYou won\n";
-        this->window.close();
+        battle.isCurrent = false;
         states.battle2World();
         //return;
     }
@@ -165,10 +174,18 @@ void WindowGame::battleUpdate(Battle &battle, Attack attack, StateMachine &state
         }
         if (!battle.isPlayerTurn()) {
             battle.enemyAttack(&attack);
-            std::cout << "Enemy" << std::endl;
             battle.setPlayerTurn(true);
         }
         if (event.key.code == sf::Keyboard::Escape || event.type == sf::Event::Closed) this->window.close(); //if escape, exit game
     }
     
+}
+
+sf::Text WindowGame::DrawNumber(int a, int x, int y) {
+    sf::Text number;
+    number.setString(std::to_string(a));
+    number.setCharacterSize(12);
+    number.setFillColor(sf::Color::White);
+    number.setPosition(x, y);
+    return number;
 }

@@ -20,8 +20,10 @@ public:
 	void drawBattle(Battle battle);
 
 	void animation(Attack attackAnimation);
-	void updateInputWorld(PlayerCharacter* player, EnemyCharacter &enemiesInGame, GameWorld gameWorld, StateMachine &states, Coins &coinsInGame);
+	void updateInputWorld(PlayerCharacter* player, EnemyCharacter &enemiesInGame, GameWorld gameWorld, StateMachine &states, Coins &coinsInGame, std::vector<Battle*> battlesInGame);
 	void battleUpdate(Battle &battle, Attack attack, StateMachine &states);
+
+	sf::Text DrawNumber(int a, int x, int y);
 };
 
 #endif

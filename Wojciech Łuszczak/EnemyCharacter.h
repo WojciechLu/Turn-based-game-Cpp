@@ -17,12 +17,13 @@ public:
 	std::vector<Character*> entities;
 	int getNumberOfEnemies();
 	void setNumberOfEnemies(int a);
-	//EnemyCharacter(std::string, float, float); //constructor: set texture, and x, y
+	EnemyCharacter(std::string, float, float); //constructor: set texture, and x, y
 	EnemyCharacter(); //constructor: set texture, and x, y
+	EnemyCharacter(sf::Sprite sprite, float x, float y); //constructor: set texture, and x, y
 	EnemyCharacter(const EnemyCharacter& e1);
 	bool setUpSprite(std::string);	//set texture to sprite
 
-	bool isPlayerOn(PlayerCharacter* player); //if player is on coin, then remove coin from vector using erase
+	int isPlayerOn(PlayerCharacter* player, StateMachine* state); //if player is on coin, then remove coin from vector using erase
 
 };
 

@@ -18,29 +18,45 @@ WindowGame* mainWindow = new WindowGame(576, 576, "Game");  // created obj mainW
 GameWorld gameWorld = GameWorld();  //world class constructor
 StateMachine states(true, false); //2dWorldState, BattleState
 PlayerCharacter* player = new PlayerCharacter("images/character64.png", 192, 256); //player character class constructor on pos(192, 256) with texture character64
-//EnemyCharacter* enemy1 = new EnemyCharacter("images/enemyWarrior64.png", 256, 192);
 EnemyCharacter enemiesInGame;
 Coins coinsInGame;
+
 Attack* attack = new Attack();
 std::vector<Battle*> battlesInGame;
+int battlesInGameNum = 0;
 
 int main()
 {
-    //for (int i = 0; i < enemiesInGame.getNumberOfEnemies(); i++) { //draw all enemies
-    //    battlesInGame.push_back(new Battle(player, enemiesInGame.tiles[i]->sprite));
-    //}
+    //Battle* battle1 = new Battle(*player, enemy1->getSprite());
+    
+    battlesInGame.clear();
+    for (int i = 0; i < enemiesInGame.getNumberOfEnemies(); i++) {
+        battlesInGame.push_back(new Battle(*player, enemiesInGame.tiles[i]->sprite));
+    }
+    battlesInGameNum = battlesInGame.size();
+
     mainWindow->window.setFramerateLimit(20);
     while (mainWindow->window.isOpen())
     {
-
-       //if (states.getIsBattle()) { //render battle
-       //    mainWindow->drawBattle(*battle1);
-       //    mainWindow->battleUpdate(*battle1, *attack, states);
-       // }
+        for (int i = 0; i < battlesInGameNum; i++) {
+            if (battlesInGame[i]->getBattleResult() == 1) {
+                battlesInGame.erase(battlesInGame.begin() + i);
+                battlesInGameNum = battlesInGame.size();
+                states.battle2World();
+            }
+        }
+        if (states.getIsBattle()) { //render battle
+            for (int i = 0; i < battlesInGameNum; i++) {
+                if (battlesInGame[i]->isCurrent) {
+                    mainWindow->drawBattle(*battlesInGame[i]);
+                    mainWindow->battleUpdate(*battlesInGame[i], *attack, states);
+                }
+            }
+        }
+       
         
-        //else if (states.getIsWorld()) { //render 2d world
-        if (states.getIsWorld()) { //render 2d world
-            mainWindow->updateInputWorld(player, enemiesInGame, gameWorld, states, coinsInGame);
+        else if (states.getIsWorld()) { //render 2d world
+            mainWindow->updateInputWorld(player, enemiesInGame, gameWorld, states, coinsInGame, battlesInGame);
             mainWindow->draw2dWorld(gameWorld, *player, enemiesInGame, coinsInGame);
         }
 

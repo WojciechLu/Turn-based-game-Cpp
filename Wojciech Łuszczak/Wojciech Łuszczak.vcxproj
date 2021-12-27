@@ -154,7 +154,6 @@
     <ClCompile Include="GameTile.cpp" />
     <ClCompile Include="GameWorld.cpp" />
     <ClCompile Include="PlayerCharacter.cpp" />
-    <ClCompile Include="Source.cpp" />
     <ClCompile Include="StartGame.cpp" />
     <ClCompile Include="StateMachine.cpp" />
     <ClCompile Include="WindowGame.cpp" />

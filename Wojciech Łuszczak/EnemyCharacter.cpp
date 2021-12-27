@@ -1,17 +1,17 @@
 #include "EnemyCharacter.h"
 #include <iostream>
 
-//EnemyCharacter::EnemyCharacter(std::string textureName, float x, float y) { //constructor: set texture, and x, y
-//	if (!setUpSprite(textureName)) {
-//		return;
-//	}
-//	pos = sf::Vector2f(x, y); //setting vector of x and y position
-//	sprite.setPosition(pos); //update the sprite's position
-//	setUpSprite(textureName); //setting the spire texture
-//
-//	setHP(20);
-//	setAD(5);
-//} 
+EnemyCharacter::EnemyCharacter(std::string textureName, float x, float y) { //constructor: set texture, and x, y
+	if (!setUpSprite(textureName)) {
+		return;
+	}
+	pos = sf::Vector2f(x, y); //setting vector of x and y position
+	sprite.setPosition(pos); //update the sprite's position
+	setUpSprite(textureName); //setting the spire texture
+
+	setHP(20);
+	setAD(5);
+} 
 
 EnemyCharacter::EnemyCharacter(const EnemyCharacter& e1) {
 	setTexture(e1.texture);
@@ -38,6 +38,13 @@ EnemyCharacter::EnemyCharacter() {
 	setUpTiles();
 }
 
+EnemyCharacter::EnemyCharacter(sf::Sprite newSprite, float x, float y)
+{
+	this->sprite = newSprite;
+	setPos(x, y);
+	sprite.setPosition(x, y);
+}
+
 void EnemyCharacter::setUpTiles() {
 	tiles.clear();
 	tiles.push_back(new GameTile("images/enemyWarrior64.png", 4 * 64, 3 * 64, true, false)); //set texture of enemies, set position, passable and not exit
@@ -53,7 +60,7 @@ void EnemyCharacter::setNumberOfEnemies(int a) {
 	this->numberOfEnemiesOnMap = a;
 }
 
-bool EnemyCharacter::isPlayerOn(PlayerCharacter* player) { // get pos x, y, get pointer to obj of class player to give coins to inventory
+int EnemyCharacter::isPlayerOn(PlayerCharacter* player, StateMachine* state) { // get pos x, y, get pointer to obj of class player to give coins to inventory
 	for (int i = 0; i < getNumberOfEnemies(); i++) {
 		float x = player->getPos().x;
 		float y = player->getPos().y;
@@ -61,9 +68,10 @@ bool EnemyCharacter::isPlayerOn(PlayerCharacter* player) { // get pos x, y, get 
 
 			tiles.erase(tiles.begin() + i); //deleting the coin from vector
 			setNumberOfEnemies(this->tiles.size()); //set the number of coins
-			return true;
+			state->world2Battle();
+			return i;
 			//break; //if player was on the coin, then break loop
 		}
 	}
-	return false;
+	return -1;
 }

@@ -39,18 +39,22 @@ void Battle::playerAttack(int a) {
         }
     }
     else if (a == -1) {
-        std::cout << "Missed \n";
+        std::cout << "Player missed \n";
     }
     else if (a == -2) {
         std::cout << "Shield \n";
-        this->isShieldOn = true;
+        this->isShieldOn = this->isShieldOn + 2;
     }
     else if (a == -3) {
+        this->isBuffOn++;
         this->player.setAD(floor(player.getAD() * 1.8));
     }
     else if (a == -4) {
+        this->isBuffOn++;
         this->player.setAD(floor(player.getAD() * 2));
     }
+    std::cout << "~~~~~~" << std::endl;
+
 }
 
 void Battle::actionsMenu(std::string textureName) { //setting texture and then using setUpSprite to set sprite
@@ -67,12 +71,9 @@ void Battle::actionsMenu(std::string textureName) { //setting texture and then u
 void Battle::checkWin() {
     if (this->enemy->getHP() == 0) {
         this->battleResult = 1;   //player won
-        std::cout << this->battleResult << std::endl;
-        
     }
     else if (this->player.getHP() == 0) {
         this->battleResult = -1;  //enemy won
-        std::cout << this->battleResult << std::endl;
     }
 }
 
@@ -86,12 +87,16 @@ void Battle::enemyAttack(Attack* attack)
     }
     int damageDealt = attack->doAttackEnemy(enemy->getAD(), this->player.getSprite().getPosition());
     if (damageDealt == -1) {
-        std::cout << "Missed \n";
+        std::cout << "Enemy missed \n";
+        if (this->isShieldOn > 0) {
+            this->isShieldOn--;
+        }
     }
+    //else if(damageDealt == 1 && enemy->getSprite()==)
     else {
-        if (this->isShieldOn) {
-            std::cout << "Shield delete" << std::endl;
-            this->isShieldOn = false;
+        if (this->isShieldOn > 0) {
+            std::cout << "Attack in shield" << std::endl;
+            this->isShieldOn--;
         }
         else {
             if (damageDealt >= this->player.getHP()) {
@@ -107,6 +112,7 @@ void Battle::enemyAttack(Attack* attack)
         }
     }
     checkWin();
+    std::cout << "~~~~~~" << std::endl;
 }
 void Battle::chooseAction(sf::Keyboard::Key key, PlayerCharacter p, Attack* attack) {
     if (key == sf::Keyboard::A) {
@@ -138,20 +144,34 @@ void Battle::chooseAction(sf::Keyboard::Key key, PlayerCharacter p, Attack* atta
     actionsMenu("images/actionMenu/attackSwordsman/interface.png");
 }
 
-Battle::Battle(PlayerCharacter &playerPattern, Character &enemyPattern)
+Battle::Battle(PlayerCharacter &playerPattern, sf::Sprite sprite)
 	:player(playerPattern){
     //, enemy(&enemyPattern){ //wywo³anie konstruktorów kopiuj¹cych dla pól prywatnych klasy bitwy: PlayerCharacter player, EnemyCharacter enemy
 
     this->skillChoice = 0;
 	this->playerTurn = true; 
     this->battleResult = 0;
+
+    //setting action menu and background
     actionsMenu("images/actionMenu/attackSwordsman/interface.png");
     sf::IntRect bg(0, 0, 576, 576);
     setUpBackground("images/battle/background.png", bg);
-    //this->player.setPos(3 * 64, 3 * 64);
-    //this->enemy = new EnemyCharacter(enemyPattern);
-    //this->enemy->setPos(5 * 64, 3 * 64);
+
     this->player.setSpritePos(player.getOrginalSprite(), 192, 192);
+
+    //setting enemy
+    this->enemy = new EnemyCharacter(sprite, 5 * 64, 3 * 64);
+    //enemy->setHP(20);
+
+    //setting icons, buffs
+    this->isShieldOn = 0;
+    this->isBuffOn = 0;
+    sf::IntRect icon(0, 0, 32, 32);
+    setUpSprite("images/actionMenu/attackSwordsman/buff-icon.png", icon, buffIconTexture, &buffIcon);
+    buffIcon.setPosition(2.5 * 64, 2.5 * 64);
+    this->shieldIcon.setPosition(sf::Vector2f(2.5 * 64 + 32, 2.5 * 64)); //update the sprite's position
+    setUpSprite("images/actionMenu/attackSwordsman/shield-icon.png", icon, this->shieldIconTexture, &this->shieldIcon); //setting the sprite texture
+
 }
 
 
@@ -169,6 +189,16 @@ sf::Sprite Battle::getSpriteAttack() const
 sf::Sprite Battle::getSpriteBg() const
 {
     return this->spriteBg;
+}
+
+sf::Sprite Battle::getSpriteIconShield() const
+{
+    return this->shieldIcon;
+}
+
+sf::Sprite Battle::getSpriteIconBuff() const
+{
+    return this->buffIcon;
 }
 
 int Battle::getBattleResult() const
