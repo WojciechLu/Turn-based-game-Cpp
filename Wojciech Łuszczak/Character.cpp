@@ -9,22 +9,6 @@ void Character::setPos(float x, float y) {
 	this->sprite.setPosition(pos);
 }
 
-//float Character::getPosX() {
-//	return this->pos.x;
-//}
-//
-//void Character::setPosX(int x) {
-//	this->pos.x = x;
-//}
-//
-//float Character::getPosY() {
-//	return this->pos.y;
-//}
-//
-//void Character::setPosY(int y) {
-//	this->pos.y = y;
-//}
-
 int Character::getHP() {
 	return this->HP;
 }
